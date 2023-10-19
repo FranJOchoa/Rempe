@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZMEDIMAGE_GW_SRV" xml:lang="es" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Metadata" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Einri" />
+                    <PropertyRef Name="Dtid" />
+                    <PropertyRef Name="Dtvers" />
+                    <PropertyRef Name="ModAlias" />
+                    <PropertyRef Name="Patnr" />
+                    <PropertyRef Name="Falnr" />
+                    <PropertyRef Name="Orgid" />
+                    <PropertyRef Name="Dockey" />
+                    <PropertyRef Name="Aux1" />
+                    <PropertyRef Name="Aux2" />
+                    <PropertyRef Name="Aux3" />
+                </Key>
+                <Property Name="CanvasWidth" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="CanvasHeight" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Einri" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Dtid" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Dtvers" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="ModAlias" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Patnr" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Falnr" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Orgid" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Dockey" Type="Edm.String" Nullable="false" MaxLength="33" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Image64" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Aux1" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Aux2" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Aux3" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="AllowBackground" Type="Edm.Boolean" Nullable="false" sap:label="Indicador" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="AllowGrid" Type="Edm.Boolean" Nullable="false" sap:label="Indicador" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="AllowCenter" Type="Edm.Boolean" Nullable="false" sap:label="Indicador" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="AllowUndo" Type="Edm.Boolean" Nullable="false" sap:label="Indicador" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="AllowRedo" Type="Edm.Boolean" Nullable="false" sap:label="Indicador" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="AllowCopy" Type="Edm.Boolean" Nullable="false" sap:label="Indicador" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="AllowPaste" Type="Edm.Boolean" Nullable="false" sap:label="Indicador" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="AllowDelete" Type="Edm.Boolean" Nullable="false" sap:label="Indicador" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="AllowZoomIn" Type="Edm.Boolean" Nullable="false" sap:label="Indicador" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="AllowZoomOut" Type="Edm.Boolean" Nullable="false" sap:label="Indicador" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+            </EntityType>
+            <EntityType Name="image" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Refkey" />
+                    <PropertyRef Name="Dockey" />
+                </Key>
+                <Property Name="Refkey" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="RefKey" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Dockey" Type="Edm.String" Nullable="false" MaxLength="33" sap:label="Initial image" sap:updatable="false" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Notation" Type="Edm.String" Nullable="false" sap:label="Modifications" sap:sortable="false" sap:filterable="false" />
+                <Property Name="Resimage" Type="Edm.String" Nullable="false" sap:label="Result image" sap:sortable="false" sap:filterable="false" />
+            </EntityType>
+            <EntityContainer Name="ZMEDIMAGE_GW_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="MetadataSet" EntityType="ZMEDIMAGE_GW_SRV.Metadata" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1" />
+                <EntitySet Name="imageSet" EntityType="ZMEDIMAGE_GW_SRV.image" sap:searchable="true" sap:pageable="false" sap:content-version="1" />
+            </EntityContainer>
+            <atom:link rel="self" href="https://SAPDES.GRUPORECOLETAS.COM:443/sap/opu/odata/sap/ZMEDIMAGE_GW_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom" />
+            <atom:link rel="latest-version" href="https://SAPDES.GRUPORECOLETAS.COM:443/sap/opu/odata/sap/ZMEDIMAGE_GW_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom" />
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,37 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Popover showHeader="false" contentWidth="50%" afterClose="onPopoverClose" beforeOpen="onPopoverOpen">
+    <Toolbar>
+      <Title text="{i18n>RelatedDocs}" titleStyle="H3" class="sapUiSmallMarginBegin"/>
+    </Toolbar>
+    <Table items="{path:'FilteredDocuments>/results', sorter:{path:'RN2DOCDATA/Dodat', descending: 'true'}}" mode="SingleSelectMaster" selectionChange="onRelatedDocSelection">
+      <columns>
+        <Column>
+          <Text text="Centro Sanitario"/>
+        </Column>
+        <Column>
+          <Text text="Episodio"/>
+        </Column>
+        <Column>
+          <Text text="U. Documentación"/>
+        </Column>
+        <Column>
+          <Text text="Fecha de Documentación"/>
+        </Column>
+        <Column>
+          <Text text="Responsable"/>
+        </Column>
+      </columns>
+      <items>
+        <ColumnListItem class="resulto-bold">
+          <cells>
+            <Text text="{FilteredDocuments>RN2DOCDATA/Einri}"/>
+            <Text text="{FilteredDocuments>RN2DOCDATA/Falnr}"/>
+            <Text text="{FilteredDocuments>RN2DOCDATA/Orgdo}"/>
+            <Text text="{path: 'FilteredDocuments>RN2DOCDATA/Dodat', type: 'sap.ui.model.type.Date'}"/>
+            <Text text="{FilteredDocuments>DrText}"/>
+          </cells>
+        </ColumnListItem>
+      </items>
+    </Table>
+  </Popover>
+</core:FragmentDefinition>

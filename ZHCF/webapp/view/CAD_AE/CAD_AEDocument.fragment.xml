@@ -1,0 +1,964 @@
+<core:FragmentDefinition
+	xmlns:dnd="sap.ui.core.dnd"
+	xmlns:table="sap.ui.table"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:uxap="sap.uxap"
+>
+	<uxap:ObjectPageLayout
+		isChildPage="true"
+		useIconTabBar="true"
+		busy="true"
+		busyIndicatorDelay="0"
+		class="sapUiTinyMarginBottom"
+	>
+		<uxap:headerTitle>
+			<uxap:ObjectPageDynamicHeaderTitle>
+				<uxap:expandedHeading>
+					<Title titleStyle="H3"/>
+				</uxap:expandedHeading>
+				<uxap:expandedContent>
+					<Text/>
+				</uxap:expandedContent>
+				<uxap:actions>
+					<!--<Button
+						icon="sap-icon://cause"
+						text="{i18n>BringData}"
+						press="bringDocument($event, 'CAD_AE')"
+						enabled="false"
+						visible="{= ${CAD_AE>/Dokst} === '' }"
+					/>-->
+					<Button
+						icon="sap-icon://create"
+						text="{i18n>NewDocument}"
+						press="createNewDocument('CAD_AE')"
+						enabled="false"
+						visible="{=!${
+							parts: [{path: 'CAD_AE>/Dokst'}, {value: 'X'}, {path: 'AllowedPMD>/results'}, {value: 'CAD_AE'}],
+							formatter: '.formatter.isEditable'
+						}}"
+					/>
+					<Button
+						icon="sap-icon://create-form"
+						text="{i18n>NewVersion}"
+						press="createDocumentVersion('CAD_AE')"
+						enabled="false"
+						visible="{=!${
+								path: 'CAD_AE>/Dokst',
+								formatter: '.formatter.isEditable'
+							}}"
+					/>
+					<Button
+						icon="sap-icon://save"
+						text="{i18n>Save}"
+						press="save('CAD_AE')"
+						enabled="false"
+						visible="{
+							path: 'CAD_AE>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+					/>
+					<Button
+						icon="sap-icon://signature"
+						text="{i18n>SaveSend}"
+						press="saveSend('CAD_AE')"
+						enabled="false"
+						visible="{
+							path: 'CAD_AE>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+					/>
+					<Button
+						icon="sap-icon://print"
+						text="{i18n>Print}"
+						press="save('CAD_AE', 'true')"
+						enabled="false"
+						visible="{
+							path: 'CAD_AE>/Dokst',
+							formatter: '.formatter.isPrintable'
+						}"
+					/>
+				</uxap:actions>
+			</uxap:ObjectPageDynamicHeaderTitle>
+		</uxap:headerTitle>
+	</uxap:ObjectPageLayout>
+	<VBox
+		busy="true"
+		busyIndicatorDelay="0"
+	>
+		<Panel
+			headerText="{i18n>MOV_FMOTFT}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<HBox
+				justifyContent="SpaceBetween"
+				width="100%"
+			>
+				<VBox class="sapUiSmallMarginEnd">
+					<layoutData>
+						<FlexItemData growFactor="3"/>
+					</layoutData>
+					<Label
+						text="{i18n>MOV_FMOTFT}"
+						tooltip="{i18n>MOV_FMOTFT}"
+					/>
+					<FlexBox
+						alignItems="Start"
+						justifyContent="SpaceBetween"
+					>
+						<TextArea
+							id="AEMotCon"
+							growing="false"
+							growingMaxLines="5"
+							rows="3"
+							maxLength="50"
+							showExceededText="true"
+							liveChange="onLiveChangeMaxLength"
+							value="{CAD_AE>/content/MOV_FMOTFT/Value}"
+							editable="{
+								path: 'CAD_AE>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+							width="100%"
+						>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</TextArea>
+						<Button
+							id="AEBtnCon"
+							icon="sap-icon://detail-more"
+							press="ExpandedDialogOpen"
+						/>
+					</FlexBox>
+				</VBox>
+				<VBox class="sapUiSmallMarginEnd">
+					<layoutData>
+						<FlexItemData growFactor="1"/>
+					</layoutData>
+					<Label
+						text="{i18n>MOV_FTICOT}"
+						tooltip="{i18n>MOV_FTICOT}"
+					/>
+					<Select
+						items="{KeyValue>/MOV_FTICOT}"
+						selectedKey="{CAD_AE>/content/MOV_FTICOT/Value}"
+						width="100%"
+						editable="{
+							path: 'CAD_AE>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+					>
+						<core:Item
+							key="{KeyValue>KeyValue}"
+							text="{KeyValue>KeyText}"
+						/>
+					</Select>
+				</VBox>
+				<VBox class="sapUiSmallMarginEnd">
+					<Label
+						text="{i18n>MOV_FFEING}"
+						tooltip="{i18n>MOV_FFEING}"
+					/>
+					<Input
+						value="{CAD_AE>/content/MOV_FFEING/Value}"
+						editable="false"
+					/>
+				</VBox>
+				<VBox>
+					<Label
+						text="{i18n>MOV_FHRING}"
+						tooltip="{i18n>MOV_FHRING}"
+					/>
+					<Input
+						value="{CAD_AE>/content/MOV_FHRING/Value}"
+						editable="false"
+					/>
+				</VBox>
+			</HBox>
+			<Title text="{i18n>Triage}"/>
+			<HBox
+				justifyContent="SpaceBetween"
+				width="100%"
+			>
+				<VBox class="sapUiSmallMarginEnd">
+					<layoutData>
+						<FlexItemData growFactor="2"/>
+					</layoutData>
+					<Label
+						text="{i18n>X00_FMOTXT}"
+						tooltip="{i18n>X00_FMOTXT}"
+					/>
+					<Input
+						value="{CAD_AE>/content/X00_FMOTXT/Value}"
+						editable="false"
+					/>
+				</VBox>
+				<VBox class="sapUiSmallMarginEnd">
+					<layoutData>
+						<FlexItemData growFactor="2"/>
+					</layoutData>
+					<Label
+						text="{i18n>X00_FTICOT}"
+						tooltip="{i18n>X00_FTICOT}"
+					/>
+					<Select
+						items="{KeyValue>/X00_FTICOT}"
+						editable="false"
+						selectedKey="{CAD_AE>/content/X00_FTICOT/Value}"
+						width="100%"
+					>
+						<core:Item
+							key="{KeyValue>KeyValue}"
+							text="{KeyValue>KeyText}"
+						/>
+					</Select>
+				</VBox>
+				<VBox>
+					<layoutData>
+						<FlexItemData growFactor="1"/>
+					</layoutData>
+					<Label
+						text="{i18n>MOV_FFCCSE}"
+						tooltip="{i18n>MOV_FFCCSE}"
+					/>
+					<Input
+						value="{CAD_AE>/content/MOV_FFCCSE/Value}"
+						editable="{
+							path: 'CAD_AE>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+					/>
+				</VBox>
+			</HBox>
+		</Panel>
+		<Panel
+			headerText="{i18n>Personal_History}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<Table
+				items="{CAD_AE>/DroppedHistoryModel}"
+				mode="{= ${
+						path: 'CAD_AE>/Dokst',
+						formatter: '.formatter.isEditable'
+					}?'Delete':'None'}"
+				delete="onDeleteDroppedHistoryModelPressed($event, 'CAD_AE')"
+			>
+				<headerToolbar>
+					<Toolbar>
+						<Title text="{i18n>Allergies_Background}"/>
+						<ToolbarSpacer/>
+						<Button
+							icon="sap-icon://add"
+							text="importar"
+							press="importAll"
+						>
+						</Button>
+					</Toolbar>
+				</headerToolbar>
+				<dragDropConfig>
+					<dnd:DropInfo drop="onDropHistory($event, 'CAD_AE')"/>
+				</dragDropConfig>
+				<columns>
+					<Column>
+						<Text text="{i18n>Type}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>Description}"/>
+					</Column>
+				</columns>
+				<ColumnListItem>
+					<cells>
+						<Text text="{CAD_AE>medtype}"/>
+						<Text text="{CAD_AE>description}"/>
+					</cells>
+				</ColumnListItem>
+			</Table>
+		</Panel>
+		<Panel
+			headerText="{i18n>PAT_GOTHI}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<FlexBox
+				alignItems="Start"
+				justifyContent="SpaceBetween"
+			>
+				<TextArea
+					id="AEOtrAntInt"
+					growing="true"
+					growingMaxLines="5"
+					rows="3"
+					value="{CAD_AE>/content/PAT_GOTHI/Value}"
+					editable="{
+						path: 'CAD_AE>/Dokst',
+						formatter: '.formatter.isEditable'
+					}"
+					width="100%"
+				>
+					<layoutData>
+						<FlexItemData growFactor="1"/>
+					</layoutData>
+				</TextArea>
+				<Button
+					icon="sap-icon://detail-more"
+					press="ExpandedDialogOpen"
+				/>
+			</FlexBox>
+		</Panel>
+		<Panel
+			headerText="{i18n>PAT_FPILL}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<FlexBox
+				alignItems="Start"
+				justifyContent="SpaceBetween"
+			>
+				<TextArea
+					id="AEEnfAct"
+					growing="true"
+					growingMaxLines="5"
+					rows="3"
+					value="{CAD_AE>/content/PAT_FPILL/Value}"
+					editable="{
+						path: 'CAD_AE>/Dokst',
+						formatter: '.formatter.isEditable'
+					}"
+					width="100%"
+				>
+					<layoutData>
+						<FlexItemData growFactor="1"/>
+					</layoutData>
+				</TextArea>
+				<Button
+					icon="sap-icon://detail-more"
+					press="ExpandedDialogOpen"
+				/>
+			</FlexBox>
+		</Panel>
+		<Panel
+			headerText="{i18n>CLI_FPEFUR}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<FlexBox
+				alignItems="Start"
+				justifyContent="SpaceBetween"
+			>
+				<TextArea
+					id="AEExpFis"
+					growing="true"
+					growingMaxLines="5"
+					rows="3"
+					value="{CAD_AE>/content/CLI_FPEFUR/Value}"
+					editable="{
+						path: 'CAD_AE>/Dokst',
+						formatter: '.formatter.isEditable'
+					}"
+					width="100%"
+				>
+					<layoutData>
+						<FlexItemData growFactor="1"/>
+					</layoutData>
+				</TextArea>
+				<Button
+					icon="sap-icon://detail-more"
+					press="ExpandedDialogOpen"
+				/>
+			</FlexBox>
+		</Panel>
+		<Panel
+			headerText="{i18n>VitalSignsTitle}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<Table
+				items="{CAD_AE>/VitalSignsExamTable}"
+				mode="{= ${
+						path: 'CAD_AE>/Dokst',
+						formatter: '.formatter.isEditable'
+					}?'Delete':'None'}"
+				delete="onDeleteVitalSignsExamTablePressed($event, 'CAD_AE')"
+			>
+				<headerToolbar>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Button
+							icon="sap-icon://add"
+							type="Transparent"
+							text="{i18n>Import}"
+							tooltip="{i18n>Import}"
+							press="onImportDialogPressed('CAD_AE.ImportVitalSignDialog')"
+							enabled="{
+								path: 'CAD_AE>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						/>
+					</Toolbar>
+				</headerToolbar>
+				<dragDropConfig>
+					<dnd:DropInfo drop="onDropVitalSigns($event, 'CAD_AE')"/>
+				</dragDropConfig>
+				<columns>
+					<Column>
+						<Text text="{i18n>CLI_FVSDSC}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>CLI_FVSVAL}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>CLI_FVSNRA}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>CLI_FVSTIM}"/>
+					</Column>
+				</columns>
+				<ColumnListItem>
+					<cells>
+						<Text text="{CAD_AE>CLI_FVSDSC}"/>
+						<Text text="{CAD_AE>CLI_FVSVAL}"/>
+						<Text text="{CAD_AE>CLI_FVSNRA}"/>
+						<Text text="{CAD_AE>CLI_FVSTIM}"/>
+					</cells>
+				</ColumnListItem>
+			</Table>
+		</Panel>
+		<Panel
+			headerText="{i18n>EVO_CUR_CLI}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<Label
+				design="Standard"
+				displayOnly="false"
+				required="false"
+				text="{i18n>EVO_CUR_CLI}"
+				textAlign="Begin"
+				textDirection="Inherit"
+				vAlign="Inherit"
+				width=""
+				wrapping="false"
+				wrappingType="Normal"
+			/>
+			<!--TODO: PONER LA DIRECIÓN AL CONTENT -->
+			<FlexBox
+				alignItems="Start"
+				justifyContent="SpaceBetween"
+			>
+				<TextArea
+					id="AEEvCursCli"
+					growing="true"
+					growingMaxLines="5"
+					rows="3"
+					value="{CAD_AE>/content/MOV_EEVO/Value}"
+					editable="{
+						path: 'CAD_AE>/Dokst',
+						formatter: '.formatter.isEditable'
+					}"
+					width="100%"
+				>
+					<layoutData>
+						<FlexItemData growFactor="1"/>
+					</layoutData>
+				</TextArea>
+				<Button
+					icon="sap-icon://detail-more"
+					press="ExpandedDialogOpen"
+				/>
+			</FlexBox>
+			<Label text="{i18n>Observation_Stay}"/>
+			<FlexBox
+				alignItems="Start"
+				justifyContent="SpaceBetween"
+			>
+				<TextArea
+					id="AEEstObs"
+					growing="true"
+					growingMaxLines="5"
+					rows="3"
+					value="{CAD_AE>/content/MOV_EOBS/Value}"
+					editable="{
+						path: 'CAD_AE>/Dokst',
+						formatter: '.formatter.isEditable'
+					}"
+					width="100%"
+				>
+					<layoutData>
+						<FlexItemData growFactor="1"/>
+					</layoutData>
+				</TextArea>
+				<Button icon="sap-icon://detail-more"
+				press="ExpandedDialogOpen"
+				/>
+			</FlexBox>
+		</Panel>
+		<Panel
+			headerText="{i18n>SupplementaryTests}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<Table
+				items="{CAD_AE>/Services}"
+				mode="{= ${
+						path: 'CAD_AE>/Dokst',
+						formatter: '.formatter.isEditable'
+					}?'Delete':'None'}"
+				delete="onDeleteServicesTablePressed($event, 'CAD_AE')"
+			>
+				<dragDropConfig>
+					<dnd:DropInfo drop="onDropServices($event, 'CAD_AE')"/>
+				</dragDropConfig>
+				<columns>
+					<Column>
+						<Text text="{i18n>Date}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>Test}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>Doctor}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>CADMAM_PRU_RES}"/>
+					</Column>
+				</columns>
+				<ColumnListItem>
+					<cells>
+						<Text text="{CAD_AE>ORD_FASSCD}"/>
+						<Text text="{CAD_AE>ORD_FASSD}"/>
+						<Text text="{CAD_AE>ORD_FERNAM}"/>
+						<Text text="{CAD_AE>PMD_FREST}"/>
+					</cells>
+				</ColumnListItem>
+			</Table>
+			<Label
+				text="{i18n>OTHER_SupplementaryTests}"
+				class="sapUiSmallMarginTop"
+			/>
+			<FlexBox
+				alignItems="Start"
+				justifyContent="SpaceBetween"
+			>
+				<TextArea
+					id="AEOtrPRuComp"
+					growing="true"
+					growingMaxLines="5"
+					rows="3"
+					value="{CAD_AE>/content/ORD_FASST/Value}"
+					editable="{
+						path: 'CAD_AE>/Dokst',
+						formatter: '.formatter.isEditable'
+					}"
+					width="100%"
+				>
+					<layoutData>
+						<FlexItemData growFactor="1"/>
+					</layoutData>
+				</TextArea>
+				<Button
+					icon="sap-icon://detail-more"
+					press="ExpandedDialogOpen"
+				/>
+			</FlexBox>
+		</Panel>
+		<Panel
+			headerText="{i18n>Diag_Judment}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<Table
+				items="{CAD_AE>/Diagnoses}"
+				mode="{= ${
+						path: 'CAD_AE>/Dokst',
+						formatter: '.formatter.isEditable'
+					}?'Delete':'None'}"
+				delete="onDeleteDiag_JudmentTablePressed($event, 'CAD_AE')"
+			>
+				<headerToolbar>
+					<Toolbar>
+						<Title
+							text="{i18n>Diagnoses}"
+							titleStyle="H4"
+						/>
+						<ToolbarSpacer/>
+						<Button
+							icon="sap-icon://document"
+							type="Transparent"
+							text="{i18n>Create}"
+							tooltip="{i18n>Create}"
+							press="onImportDialogPressed('CAD_AE.CreateDiag')"
+							enabled="{
+								path: 'CAD_AE>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						/>
+						<Button
+							icon="sap-icon://add"
+							type="Transparent"
+							text="{i18n>Import}"
+							tooltip="{i18n>Import}"
+							press="onImportDialogPressed('CAD_AE.ImportDiag')"
+							enabled="{
+								path: 'CAD_AE>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						/>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column>
+						<Text text="{i18n>DescriptionOfDiagnostics}"/>
+					</Column>
+				</columns>
+				<ColumnListItem>
+					<cells>
+						<Text text="{CAD_AE>PAT_FDIAD}"/>
+					</cells>
+				</ColumnListItem>
+			</Table>
+			<Label
+				text="{i18n>PAT_GCLIN}"
+				class="sapUiSmallMarginTop"
+			/>
+			<FlexBox
+				alignItems="Start"
+				justifyContent="SpaceBetween"
+			>
+				<TextArea
+					id="AEJuiCli"
+					growing="true"
+					growingMaxLines="5"
+					rows="3"
+					value="{CAD_AE>/content/PAT_GCLIN/Value}"
+					editable="{
+						path: 'CAD_AE>/Dokst',
+						formatter: '.formatter.isEditable'
+					}"
+					width="100%"
+				>
+					<layoutData>
+						<FlexItemData growFactor="1"/>
+					</layoutData>
+				</TextArea>
+				<Button
+					icon="sap-icon://detail-more"
+					press="ExpandedDialogOpen"
+				/>
+			</FlexBox>
+		</Panel>
+		<Panel
+			headerText="{i18n>X00_GOTHTR}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<FlexBox
+				alignItems="Start"
+				justifyContent="SpaceBetween"
+			>
+				<TextArea
+					id="AETratEfect"
+					growing="true"
+					growingMaxLines="5"
+					rows="3"
+					value="{CAD_AE>/content/X00_GOTHTR/Value}"
+					editable="{
+						path: 'CAD_AE>/Dokst',
+						formatter: '.formatter.isEditable'
+					}"
+					width="100%"
+				>
+					<layoutData>
+						<FlexItemData growFactor="1"/>
+					</layoutData>
+				</TextArea>
+				<Button
+					icon="sap-icon://detail-more"
+					press="ExpandedDialogOpen"
+				/>
+			</FlexBox>
+		</Panel>
+		<Panel
+			headerText="{i18n>Recommendations}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<Label text="{i18n>PMD_ALTMED}"/>
+			<FlexBox
+				alignItems="Start"
+				justifyContent="SpaceBetween"
+			>
+				<TextArea
+					id="AETratSeg"
+					growing="true"
+					growingMaxLines="5"
+					rows="3"
+					value="{CAD_AE>/content/PMD_ALTMED/Value}"
+					editable="{
+						path: 'CAD_AE>/Dokst',
+						formatter: '.formatter.isEditable'
+					}"
+					width="100%"
+				>
+					<layoutData>
+						<FlexItemData growFactor="1"/>
+					</layoutData>
+				</TextArea>
+				<Button
+					icon="sap-icon://detail-more"
+					press="ExpandedDialogOpen"
+				/>
+			</FlexBox>
+		</Panel>
+		<Panel
+			headerText="{i18n>Discharge}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<HBox justifyContent="End">
+				<Button
+					enabled="{
+						path: 'CAD_AE>/Dokst',
+						formatter: '.formatter.isEditable'
+					}"
+					press="onDischargeButtonPress($event, 'CAD_AE')"
+					text="{=${CAD_AE>/content/MOV_FDISFL/Value} === 'X' ? ${i18n>WithDischarge} : ${i18n>WithoutDischarge} }"
+				/>
+			</HBox>
+			<form:SimpleForm
+				id="formDischargeEmb"
+				editable="{
+					parts: ['CAD_AE>/Dokst', 'CAD_AE>/content/MOV_FDISFL/Value'],
+					formatter: '.formatter.isEditable'
+				}"
+				layout="ResponsiveGridLayout"
+				labelSpanXL="3"
+				labelSpanL="2"
+				labelSpanM="2"
+				labelSpanS="2"
+				adjustLabelSpan="true"
+				emptySpanXL="0"
+				emptySpanL="0"
+				emptySpanM="0"
+				emptySpanS="0"
+				columnsXL="2"
+				columnsL="2"
+				columnsM="2"
+				singleContainerFullSize="true"
+			>
+				<Label
+					text="{i18n>MOV_FDATDI}"
+					class="sapUiLargeMarginBottom"
+				/>
+				<DatePicker
+					displayFormat="dd.MM.yyyy"
+					value="{CAD_AE>/content/MOV_FDATDI/Value}"
+					valueFormat="dd.MM.yyyy"
+					change="onMOV_FDATDIChange"
+					editable="{
+						parts: ['CAD_AE>/Dokst', 'CAD_AE>/content/MOV_FDISFL/Value'],
+						formatter: '.formatter.isEditable'
+					}"
+				/>
+				<TimePicker
+					displayFormat="HH:mm"
+					value="{CAD_AE>/content/MOV_FTIMDI/Value}"
+					valueFormat="HH:mm"
+					editable="{
+						parts: ['CAD_AE>/Dokst', 'CAD_AE>/content/MOV_FDISFL/Value'],
+						formatter: '.formatter.isEditable'
+					}"
+				>
+					<layoutData>
+						<l:GridData span="XL3 L3 M4 S4"/>
+					</layoutData>
+				</TimePicker>
+				<Label
+					text="{i18n>MOV_FDTYPE}"
+					textAlign="Center"
+				/>
+				<RadioButtonGroup
+					buttons="{KeyValue>/MOV_FDTYPE}"
+					id="rMOV_FDTYPE"
+					columns="2"
+					width="100%"
+					class="sapUiMediumMarginBottom sapUiMediumPaddingBegin"
+					enabled="{
+						parts: ['CAD_AE>/Dokst', 'CAD_AE>/content/MOV_FDISFL/Value'],
+						formatter: '.formatter.isEditable'
+					}"
+					select=".DisChargeUrgeRadioButtom"
+				>
+					<RadioButton
+						text="{KeyValue>KeyText}"
+						visible="{= ${KeyValue>KeyText} !== ''}"
+					/>
+				</RadioButtonGroup>
+				<Label
+					text="{i18n>MOV_CSTRAS}"
+					textAlign="Initial"
+				/>
+				<RadioButtonGroup
+					buttons="{KeyValue>/MOV_CSTRAS}"
+					id="rMOV_CSTRAS"
+					columns="2"
+					width="100%"
+					class="sapUiMediumMarginBottom"
+					enabled="{
+						parts: ['CAD_AE>/Dokst', 'CAD_AE>/content/MOV_FDISFL/Value', 'CAD_AE>/content/MOV_FDTYPE/Value'],
+						formatter: '.formatter.isEditableAndEnabled'
+					}"
+					select="DisChargeUrgeRadioButtom"
+				>
+					<RadioButton
+						text="{KeyValue>KeyText}"
+						visible="{= ${KeyValue>KeyText} !== ''}"
+					/>
+				</RadioButtonGroup>
+				<Label
+					text="{i18n>MOV_FSTYDA}"
+					textAlign="Initial"
+				/>
+				<RadioButtonGroup
+					buttons="{KeyValue>/MOV_FSTYDA}"
+					id="rMOV_FSTYDA"
+					columns="2"
+					width="100%"
+					class="sapUiMediumMarginBottom"
+					enabled="{
+						parts: ['CAD_AE>/Dokst', 'CAD_AE>/content/MOV_FDISFL/Value'],
+						formatter: '.formatter.isEditable'
+					}"
+					select="DisChargeUrgeRadioButtom"
+				>
+					<RadioButton
+						text="{KeyValue>KeyText}"
+						visible="{= ${KeyValue>KeyText} !== ''}"
+					/>
+				</RadioButtonGroup>
+				<Label text="{i18n>MOV_FTRADI}"/>
+				<CheckBox
+					selected="{=${CAD_AE>/content/MOV_FTRADI/Value} === 'X'}"
+					select="onSelect($event, 'CAD_AE','MOV_FTRADI')"
+					editable="{
+						parts: ['CAD_AE>/Dokst', 'CAD_AE>/content/MOV_FDISFL/Value'],
+						formatter: '.formatter.isEditable'
+					}"
+				>
+					<layoutData>
+						<l:GridData span="XL2 L2 M3 S4"/>
+					</layoutData>
+				</CheckBox>
+				<Label
+					text="{i18n>MOV_FTRADC}"
+					textAlign="Initial"
+				/>
+				<RadioButtonGroup
+					buttons="{KeyValue>/MOV_FTRADC}"
+					id="rMOV_FTRADC"
+					columns="3"
+					width="100%"
+					class="sapUiMediumMarginBottom"
+					enabled="{
+						parts: ['CAD_AE>/Dokst', 'CAD_AE>/content/MOV_FDISFL/Value', 'CAD_AE>/content/MOV_FTRADI/Value'],
+						formatter: '.formatter.isEditableAndChecked'
+					}"
+					select="DisChargeUrgeRadioButtom"
+				>
+					<RadioButton
+						text="{KeyValue>KeyText}"
+						visible="{= ${KeyValue>KeyText} !== ''}"
+					/>
+				</RadioButtonGroup>
+				<ToolbarSpacer/>
+				<Label
+					text="{i18n>SELECT_SPECIALTY}"
+					visible="false"
+					id="labelSpeciality"
+				/>
+				<ComboBox
+					items="{GetOrganizationUnits>/results}"
+					visible="false"
+					id="selectSpecialty"
+					selectionChange="setSpecialty($event)"
+				>
+					<core:ListItem
+						text="{GetOrganizationUnits>Orgna}"
+						key="{GetOrganizationUnits>Orgid}"
+						additionalText="{GetOrganizationUnits>Telnr}"
+					/>
+				</ComboBox>
+				<Label
+					text="{i18n>MOV_FREADI}"
+					tooltip="{i18n>MOV_FREADI}"
+				/>
+				<FlexBox
+					alignItems="Start"
+					justifyContent="SpaceBetween"
+				>
+					<TextArea
+						id="AEMotAlt"
+						growing="true"
+						growingMaxLines="5"
+						rows="3"
+						value="{CAD_AE>/content/MOV_FREADI/Value}"
+						editable="{
+							parts: ['CAD_AE>/Dokst', 'CAD_AE>/content/MOV_FDISFL/Value'],
+							formatter: '.formatter.isEditable'
+						}"
+						width="100%"
+					>
+						<layoutData>
+							<FlexItemData growFactor="1"/>
+						</layoutData>
+					</TextArea>
+					<Button
+						id="AEBtnAlt"
+						icon="sap-icon://detail-more"
+						press="ExpandedDialogOpen"
+					/>
+				</FlexBox>
+			</form:SimpleForm>
+		</Panel>
+	</VBox>
+</core:FragmentDefinition>

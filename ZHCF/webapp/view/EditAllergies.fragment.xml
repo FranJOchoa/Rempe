@@ -1,0 +1,109 @@
+<c:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:c="sap.ui.core"
+>
+    <Dialog
+        title="{i18n>EditAllergies}"
+        id="editAntecedentsDialog"
+        contentWidth="100%"
+        contentHeight="500px"
+        class="sapUiContentPadding"
+        busy="false"              
+    >
+        <customHeader>
+            <Toolbar>
+                <Title text="{i18n>EditAllergies}" titleStyle="H3" />
+            </Toolbar>
+        </customHeader>
+        <HBox width="100%" justifyContent="SpaceAround">
+            <VBox width="50%" class="sapUiMediumMarginBeginEnd">
+                <Label text="{i18n>Allergen}" />
+                <Input value="{NewAllergy>/Descr}"
+                    editable="false" />
+            </VBox>
+            <VBox width="50%" class="sapUiMediumMarginBeginEnd">
+                <Label text="{i18n>Certainty}" labelFor="N2AD_CER" />
+                <Select id="EDIT_N2AD_CER2" selectedKey="{NewAllergy>/Cer}" items="{KeyValue>/N2AD_CER}" change="onN2AD_CERChange"
+                    width="100%">
+                    <c:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}" />
+                </Select>
+            </VBox>
+        </HBox>
+        <VBox width="100%">
+            <Label text="{i18n>Observations}" labelFor="observations"
+                class="sapUiMediumMarginBeginEnd" />
+            <TextArea id="EDIT_observations" 
+                width="100%" 
+                growing="true" 
+                growingMaxLines="10" 
+                rows="5"
+                value="{NewAllergy>/Adcomment}" 
+                valueLiveUpdate="true"
+                maxLength="50"		
+                liveChange="onLiveChangeMaxLength"	
+                showExceededText="true"
+                class="sapUiMediumPaddingBeginEnd" />
+        </VBox>
+        <HBox width="100%" justifyContent="SpaceAround">
+            <VBox width="50%" class="sapUiMediumMarginBeginEnd">
+                <Label text="{i18n>Evaluation}" labelFor="N2AD_EVALUATION" />
+                <Select id="EDIT_N2AD_EVALUATION" selectedKey="{NewAllergy>/Evaluation}" items="{KeyValue>/N2AD_EVALUATION}"
+                    change="onN2AD_EVALUATIONChange" width="100%">
+                    <c:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}" />
+                </Select>
+            </VBox>
+            <VBox width="50%" class="sapUiMediumMarginBeginEnd">
+                <Label text="{i18n>Type}" labelFor="N2AD_TYP" />
+                <Select id="EDIT_N2AD_TYP" selectedKey="{NewAllergy>/Typ}" items="{KeyValue>/N2AD_TYP}" change="onN2AD_TYPChange"
+                    width="100%">
+                    <c:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}" />
+                </Select>
+            </VBox>
+        </HBox>
+        <Table
+        items="{path: 'NewAllergy>/Reactions', templateShareable: true}" mode="MultiSelect">
+            <headerToolbar>
+                <Toolbar>
+                    <Title
+                        text="{parts: ['i18n>Reactions', 'NewAllergy>/Reactions'], formatter: '.formatter.getTitleWithCount'}" />
+                    <ToolbarSpacer />
+                    <Button icon="sap-icon://add" press="onAddReaction" />
+                    <Button type="Reject" icon="sap-icon://delete" press="onRemoveSelectedSamples" />
+                </Toolbar>
+            </headerToolbar>
+            <columns>
+                <Column>
+                    <Text text="{i18n>ReactionType}" />
+                </Column>
+                <Column>
+                    <Text text="{i18n>Gravity}" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <Select id="EDIT_reactionType"
+                            items="{path: 'KeyValue>/N2AD_REA', templateShareable: true}"
+                            selectedKey="{NewAllergy>Rea}"                           
+                            width="100%">
+                            <c:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}" />
+                        </Select>
+                        <Select id="EDIT_gravity"
+                            items="{path: 'KeyValue>/N2AD_SOA', templateShareable: true}"
+                            selectedKey="{NewAllergy>Soa}"                           
+                            width="100%">
+                            <c:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}" />
+                        </Select>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+        <buttons>                        
+
+            <Button text="{i18n>Cancel}" press="closeUpdateDialog" />
+            <Button type="Reject" text="{i18n>Eliminate}" press="onDeleteAllergies"/>
+            <Button type="Accept" text="{i18n>Save}" press="onEditAllergies"/>        
+
+        </buttons>
+    </Dialog>
+</c:FragmentDefinition>

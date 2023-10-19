@@ -1,0 +1,28 @@
+<c:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:c="sap.ui.core"
+>
+<Dialog >
+<customHeader>
+  <Toolbar>
+    <Title text="{i18n>Eliminate}" titleStyle="H3"/>
+  </Toolbar>
+</customHeader>
+<Text
+    renderWhitespace="false"   
+    textAlign="Begin"
+    textDirection="Inherit"
+    wrapping="true"
+    wrappingType="Normal"
+    text=" Factor de Riesgo: {RiskFactorFiltered>/Rsfna}"
+    class="sapUiTinyMarginBegin"
+>
+    
+</Text>
+<buttons>
+  <Button text="{i18n>Cancel}" press="closeUpdateDialog" />
+  <Button type="Reject" text="{i18n>Eliminate}" press="onDeleteRiskFactors"/>
+
+</buttons>
+</Dialog>
+</c:FragmentDefinition>

@@ -1,0 +1,30 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog 
+    title="{i18n>AddVitalSignsDialogTitle}" 
+    contentWidth="50%" 
+    busyIndicatorDelay="0" 
+    class="sapUiContentPadding"
+    afterClose="onCancelAddVitalSignDialog">
+    <HBox width="100%" justifyContent="SpaceAround">
+      <VBox width="100%" class="sapUiSmallMarginBeginEnd">
+        <Label text="{i18n>Measure}" labelFor="measure"/>
+        <ComboBox id="measure" change="vitalSignChange" showSecondaryValues="true" width="100%" class="sapUiMediumMarginEnd"
+                  items="{VitalSigns>/catalogs/results}">
+          <core:ListItem key="{VitalSigns>positionId}" text="{VitalSigns>description}" additionalText="{VitalSigns>code}"/>
+        </ComboBox>
+      </VBox>
+      <VBox width="100%" class="sapUiSmallMarginBeginEnd">
+        <Label text="{i18n>Value}" labelFor="value"/>
+        <Input id="value" width="100%"/>
+      </VBox>
+      <VBox class="sapUiSmallMarginBeginEnd">
+        <Label text="{i18n>Unit}" labelFor="unit"/>
+        <Text id="unit" text="" width="100%" class="sapUiSmallMarginTop"/>
+      </VBox>
+    </HBox>
+    <buttons>
+      <Button type="Reject" text="{i18n>Cancel}" press="onCancelAddVitalSignDialog"/>
+      <Button type="Accept" text="{i18n>Save}" press="onSendAddVitalSignDialog"/>
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

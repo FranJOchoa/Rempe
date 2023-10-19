@@ -1,0 +1,583 @@
+<core:FragmentDefinition
+	xmlns:dnd="sap.ui.core.dnd"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:uxap="sap.uxap"
+>
+	<uxap:ObjectPageLayout
+		isChildPage="true"
+		useIconTabBar="true"
+		busy="true"
+		busyIndicatorDelay="0"
+		class="sapUiTinyMarginBottom"
+	>
+		<uxap:headerTitle>
+			<uxap:ObjectPageDynamicHeaderTitle>
+				<uxap:expandedHeading>
+					<Title titleStyle="H3"/>
+				</uxap:expandedHeading>
+				<uxap:expandedContent>
+					<Text/>
+				</uxap:expandedContent>
+				<uxap:actions>
+					<Button
+						icon="sap-icon://cause"
+						text="{i18n>BringData}"
+						press="bringDocument($event, 'CAD_OPD')"
+						enabled="false"
+						visible="{= ${CAD_OPD>/Dokst} === '' }"
+					/>
+					<Button
+						icon="sap-icon://create"
+						text="{i18n>NewDocument}"
+						press="createNewDocument('CAD_OPD')"
+						enabled="false"
+						visible="{=!${
+							parts: [{path: 'CAD_OPD>/Dokst'}, {value: 'X'}, {path: 'AllowedPMD>/results'}, {value: 'CAD_OPD'}],
+							formatter: '.formatter.isEditable'
+						}}"
+					/>
+					<Button
+						icon="sap-icon://create-form"
+						text="{i18n>NewVersion}"
+						press="createDocumentVersion('CAD_OPD')"
+						enabled="false"
+						visible="{=!${
+								path: 'CAD_OPD>/Dokst',
+								formatter: '.formatter.isEditable'
+							}}"
+					/>
+					<Button
+						icon="sap-icon://save"
+						text="{i18n>Save}"
+						press="save('CAD_OPD')"
+						enabled="false"
+						visible="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+					/>
+					<Button
+						icon="sap-icon://signature"
+						text="{i18n>SaveSend}"
+						press="saveSend('CAD_OPD')"
+						enabled="false"
+						visible="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+					/>
+					<Button
+						icon="sap-icon://print"
+						text="{i18n>Print}"
+						press="save('CAD_OPD', 'true')"
+						enabled="false"
+						visible="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isPrintable'
+						}"
+					/>
+				</uxap:actions>
+			</uxap:ObjectPageDynamicHeaderTitle>
+		</uxap:headerTitle>
+	</uxap:ObjectPageLayout>
+	<VBox
+		busy="true"
+		busyIndicatorDelay="0"
+	>
+		<Panel
+			headerText="{i18n>MOV_FMOTFT}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<FlexBox
+				alignItems="Start"
+				justifyContent="SpaceBetween"
+			>
+				<TextArea
+					id="OPDMotCon"
+					rows="3"
+					value="{CAD_OPD>/content/MOV_FMOTFL/Value}"
+					editable="{
+						path: 'CAD_OPD>/Dokst',
+						formatter: '.formatter.isEditable'
+					}"
+					width="100%"
+				>
+					<layoutData>
+						<FlexItemData growFactor="1"/>
+					</layoutData>
+				</TextArea>
+				<Button
+					icon="sap-icon://detail-more"
+					press="ExpandedDialogOpen"
+				/>
+			</FlexBox>
+		</Panel>
+		<Panel
+			headerText="{i18n>Personal_History}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<Table
+				items="{CAD_OPD>/DroppedHistoryModel}"
+				mode="{= ${
+						path: 'CAD_OPD>/Dokst',
+						formatter: '.formatter.isEditable'
+					}?'Delete':'None'}"
+				delete="onDeleteDroppedHistoryModelPressed($event, 'CAD_OPD')"
+			>
+				<headerToolbar>
+					<Toolbar>
+						<Title text="{i18n>Allergies_Background}"/>
+						<ToolbarSpacer/>
+						<Button
+							icon="sap-icon://add"
+							text="importar"
+							press="importAll"
+						>
+						</Button>
+					</Toolbar>
+				</headerToolbar>
+				<dragDropConfig>
+					<dnd:DropInfo
+						drop="onDropHistory($event, 'CAD_OPD')"
+						enabled="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+					/>
+				</dragDropConfig>
+				<columns>
+					<Column>
+						<Text text="{i18n>Type}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>Description}"/>
+					</Column>
+				</columns>
+				<ColumnListItem>
+					<cells>
+						<Text text="{CAD_OPD>medtype}"/>
+						<Text text="{CAD_OPD>description}"/>
+					</cells>
+				</ColumnListItem>
+			</Table>
+		</Panel>
+		<Panel
+			headerText="{i18n>PAT_FPILL}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<FlexBox
+				alignItems="Start"
+				justifyContent="SpaceBetween"
+			>
+				<TextArea
+					id="OPDEnfAct"
+					growing="true"
+					growingMaxLines="5"
+					rows="3"
+					value="{CAD_OPD>/content/PAT_FPILL/Value}"
+					editable="{
+						path: 'CAD_OPD>/Dokst',
+						formatter: '.formatter.isEditable'
+					}"
+					width="100%"
+				>
+					<layoutData>
+						<FlexItemData growFactor="1"/>
+					</layoutData>
+				</TextArea>
+				<Button
+					icon="sap-icon://detail-more"
+					press="ExpandedDialogOpen"
+				/>
+			</FlexBox>
+		</Panel>
+		<Panel
+			headerText="{i18n>CLI_FPEFUR}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<FlexBox
+				alignItems="Start"
+				justifyContent="SpaceBetween"
+			>
+				<TextArea
+					id="OPDExpFis"
+					growing="true"
+					growingMaxLines="5"
+					rows="3"
+					value="{CAD_OPD>/content/CLI_FPEFUR/Value}"
+					editable="{
+						path: 'CAD_OPD>/Dokst',
+						formatter: '.formatter.isEditable'
+					}"
+					width="100%"
+				>
+					<layoutData>
+						<FlexItemData growFactor="1"/>
+					</layoutData>
+				</TextArea>
+				<Button
+					icon="sap-icon://detail-more"
+					press="ExpandedDialogOpen"
+				/>
+			</FlexBox>
+		</Panel>
+		<Panel
+			headerText="{i18n>VitalSignsTitle}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<Table
+				items="{CAD_OPD>/VitalSignsExamTable}"
+				mode="{= ${
+						path: 'CAD_OPD>/Dokst',
+						formatter: '.formatter.isEditable'
+					}?'Delete':'None'}"
+				delete="onDeleteVitalSignsExamTablePressed($event, 'CAD_OPD')"
+			>
+				<headerToolbar>
+					<Toolbar>
+						<Title
+							text="{i18n>VitalSignsTitle}"
+							titleStyle="H3"
+						/>
+						<ToolbarSpacer/>
+						<Button
+							icon="sap-icon://add"
+							type="Transparent"
+							text="{i18n>Import}"
+							tooltip="{i18n>Import}"
+							press="onImportDialogPressed('CAD_OPD.ImportVitalSignDialog')"
+							enabled="{
+								path: 'CAD_OPD>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						/>
+					</Toolbar>
+				</headerToolbar>
+				<dragDropConfig>
+					<dnd:DropInfo
+						drop="onDropVitalSigns($event, 'CAD_OPD')"
+						enabled="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+					/>
+				</dragDropConfig>
+				<columns>
+					<Column>
+						<Text text="{i18n>CLI_FVSDSC}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>CLI_FVSVAL}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>CLI_FVSNRA}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>CLI_FVSTIM}"/>
+					</Column>
+				</columns>
+				<ColumnListItem>
+					<cells>
+						<Text text="{CAD_OPD>CLI_FVSDSC}"/>
+						<Text text="{CAD_OPD>CLI_FVSVAL}"/>
+						<Text text="{CAD_OPD>CLI_FVSNRA}"/>
+						<Text text="{CAD_OPD>CLI_FVSTIM}"/>
+					</cells>
+				</ColumnListItem>
+			</Table>
+		</Panel>
+		<Panel
+			headerText="{i18n>EVO_CUR_CLI}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<FlexBox
+				alignItems="Start"
+				justifyContent="SpaceBetween"
+			>
+				<TextArea
+					id="OPDEvCursClin"
+					growing="true"
+					growingMaxLines="5"
+					rows="3"
+					value="{CAD_OPD>/content/MOV_EEVO/Value}"
+					editable="{
+						path: 'CAD_OPD>/Dokst',
+						formatter: '.formatter.isEditable'
+					}"
+					width="100%"
+				>
+					<layoutData>
+						<FlexItemData growFactor="1"/>
+					</layoutData>
+				</TextArea>
+				<Button
+					icon="sap-icon://detail-more"
+					press="ExpandedDialogOpen"
+				/>
+			</FlexBox>
+		</Panel>
+		<Panel
+			headerText="{i18n>SupplementaryTests}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<Table
+				items="{CAD_OPD>/Services}"
+				mode="{= ${
+						path: 'CAD_OPD>/Dokst',
+						formatter: '.formatter.isEditable'
+					}?'Delete':'None'}"
+				delete="onDeleteServicesTablePressed($event, 'CAD_OPD')"
+			>
+				<headerToolbar/>
+				<dragDropConfig>
+					<dnd:DropInfo
+						drop="onDropServices($event, 'CAD_OPD')"
+						enabled="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+					/>
+				</dragDropConfig>
+				<columns>
+					<Column>
+						<Text text="{i18n>Date}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>Test}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>Doctor}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>CADMAM_PRU_RES}" />
+					</Column>
+					
+				</columns>
+				<ColumnListItem>
+					<cells>
+						<Text text="{CAD_OPD>ORD_FASSCD}" />
+						<Text text="{CAD_OPD>ORD_FASSD}" />
+						<Text text="{CAD_OPD>ORD_FERNAM}"/>
+						<Text text="{CAD_OPD>PMD_FREST}" />
+					</cells>
+				</ColumnListItem>
+			</Table>
+			<Label
+				text="{i18n>OTHER_SupplementaryTests}"
+				class="sapUiSmallMarginTop"
+			/>
+			<FlexBox
+				alignItems="Start"
+				justifyContent="SpaceBetween"
+			>
+				<TextArea
+					id="OPDOtPruCom"
+					growing="true"
+					growingMaxLines="5"
+					rows="3"
+					value="{CAD_OPD>/content/ORD_FASST/Value}"
+					editable="{
+						path: 'CAD_OPD>/Dokst',
+						formatter: '.formatter.isEditable'
+					}"
+					width="100%"
+				>
+					<layoutData>
+						<FlexItemData growFactor="1"/>
+					</layoutData>
+				</TextArea>
+				<Button
+					icon="sap-icon://detail-more"
+					press="ExpandedDialogOpen"
+				/>
+			</FlexBox>
+		</Panel>
+		<Panel
+			headerText="{i18n>Diag_Judment}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<Table
+				items="{CAD_OPD>/Diagnoses}"
+				mode="{= ${
+						path: 'CAD_OPD>/Dokst',
+						formatter: '.formatter.isEditable'
+					}?'Delete':'None'}"
+				delete="onDeleteDiag_JudmentTablePressed($event, 'CAD_OPD')"
+				class="sapUiTinyMarginBottom"
+			>
+				<headerToolbar>
+					<Toolbar>
+						<Title
+							text="{i18n>Diagnoses}"
+							titleStyle="H4"
+						/>
+						<ToolbarSpacer/>
+						<Button
+							icon="sap-icon://document"
+							type="Transparent"
+							text="{i18n>Create}"
+							tooltip="{i18n>Create}"
+							press="onImportDialogPressed('CAD_OPD.CreateDiag')"
+							enabled="{
+								path: 'CAD_OPD>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						/>
+						<Button
+							icon="sap-icon://add"
+							type="Transparent"
+							text="{i18n>Import}"
+							tooltip="{i18n>Import}"
+							press="onImportDialogPressed('CAD_OPD.ImportDiag')"
+							enabled="{
+								path: 'CAD_OPD>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						/>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column>
+						<Text text="{i18n>DescriptionOfDiagnostics}"/>
+					</Column>
+				</columns>
+				<ColumnListItem>
+					<cells>
+						<Text text="{CAD_OPD>PAT_FDIAD}"/>
+					</cells>
+				</ColumnListItem>
+			</Table>
+			<Label
+				text="{i18n>PAT_GCLIN}"
+				class="sapUiSmallMarginTop"
+			/>
+			<FlexBox
+				alignItems="Start"
+				justifyContent="SpaceBetween"
+			>
+				<TextArea
+					id="OPDJuiClin"
+					growing="true"
+					growingMaxLines="5"
+					rows="3"
+					value="{CAD_OPD>/content/PAT_GCLIN/Value}"
+					editable="{
+						path: 'CAD_OPD>/Dokst',
+						formatter: '.formatter.isEditable'
+					}"
+					width="100%"
+				>
+					<layoutData>
+						<FlexItemData growFactor="1"/>
+					</layoutData>
+				</TextArea>
+				<Button
+					icon="sap-icon://detail-more"
+					press="ExpandedDialogOpen"
+				/>
+			</FlexBox>
+		</Panel>
+		<Panel
+			headerText="{i18n>X00_GOTHTR}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<FlexBox
+				alignItems="Start"
+				justifyContent="SpaceBetween"
+			>
+				<TextArea
+					id="OPDTratEfect"
+					growing="true"
+					growingMaxLines="5"
+					rows="3"
+					value="{CAD_OPD>/content/X02_GOTHTR/Value}"
+					editable="{
+						path: 'CAD_OPD>/Dokst',
+						formatter: '.formatter.isEditable'
+					}"
+					width="100%"
+				>
+					<layoutData>
+						<FlexItemData growFactor="1"/>
+					</layoutData>
+				</TextArea>
+				<Button
+					icon="sap-icon://detail-more"
+					press="ExpandedDialogOpen"
+				/>
+			</FlexBox>
+		</Panel>
+		<Panel
+			headerText="{i18n>Recommendations}"
+			backgroundDesign="Solid"
+			expanded="true"
+			expandable="true"
+			class="sapUiTinyMarginBottom"
+			width="99.5%"
+		>
+			<Label text="{i18n>PMD_ALTMED}"/>
+			<FlexBox
+				alignItems="Start"
+				justifyContent="SpaceBetween"
+			>
+				<TextArea
+					id="OPDTratSeg"
+					growing="true"
+					growingMaxLines="5"
+					rows="3"
+					value="{CAD_OPD>/content/PMD_ALTMED/Value}"
+					editable="{
+						path: 'CAD_OPD>/Dokst',
+						formatter: '.formatter.isEditable'
+					}"
+					width="100%"
+				>
+					<layoutData>
+						<FlexItemData growFactor="1"/>
+					</layoutData>
+				</TextArea>
+				<Button
+					icon="sap-icon://detail-more"
+					press="ExpandedDialogOpen"
+				/>
+			</FlexBox>
+		</Panel>
+	</VBox>
+</core:FragmentDefinition>

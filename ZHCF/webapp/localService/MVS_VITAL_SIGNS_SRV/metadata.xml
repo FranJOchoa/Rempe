@@ -1,0 +1,176 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+           xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+  <edmx:DataServices m:DataServiceVersion="2.0">
+    <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="RSLT.MVS_VITAL_SIGNS_SRV" xml:lang="es" sap:schema-version="1">
+      <EntityType Name="catalog" sap:content-version="1">
+        <Key>
+          <PropertyRef Name="catalogId"/>
+          <PropertyRef Name="positionId"/>
+        </Key>
+        <Property Name="catalogId" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="positionId" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="code" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="description" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="dataType" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="unit" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="unitStep" Type="Edm.Int16" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="rangeDisplayLow" Type="Edm.Decimal" Nullable="false" Precision="31" Scale="0" sap:unicode="false" sap:creatable="false"
+                  sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="rangeDisplayHigh" Type="Edm.Decimal" Nullable="false" Precision="31" Scale="0" sap:unicode="false" sap:creatable="false"
+                  sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="rangeNormalLow" Type="Edm.Decimal" Nullable="false" Precision="31" Scale="0" sap:unicode="false" sap:creatable="false"
+                  sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="rangeNormalHigh" Type="Edm.Decimal" Nullable="false" Precision="31" Scale="0" sap:unicode="false" sap:creatable="false"
+                  sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="rangeWarningLow" Type="Edm.Decimal" Nullable="false" Precision="31" Scale="0" sap:unicode="false" sap:creatable="false"
+                  sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="rangeWarningHigh" Type="Edm.Decimal" Nullable="false" Precision="31" Scale="0" sap:unicode="false" sap:creatable="false"
+                  sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="rangeAlarmLow" Type="Edm.Decimal" Nullable="false" Precision="31" Scale="0" sap:unicode="false" sap:creatable="false"
+                  sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="rangeAlarmHigh" Type="Edm.Decimal" Nullable="false" Precision="31" Scale="0" sap:unicode="false" sap:creatable="false"
+                  sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="pairId" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="pairDescription" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="colorNormal" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="colorWarning" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="colorAlert" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="color" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="pointStyle" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+      </EntityType>
+      <EntityType Name="measuredValue" sap:content-version="1">
+        <Key>
+          <PropertyRef Name="observationId"/>
+          <PropertyRef Name="valueId"/>
+        </Key>
+        <Property Name="observationId" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="valueId" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="catalogId" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="positionId" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="institutionId" Type="Edm.String" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="patientId" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="caseId" Type="Edm.String" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="valueNum" Type="Edm.Decimal" Precision="31" Scale="2" sap:unicode="false" sap:creatable="false" sap:updatable="false"
+                  sap:sortable="false" sap:filterable="false"/>
+        <Property Name="valueText" Type="Edm.String" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="dateTime" Type="Edm.DateTime" Precision="0" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="additionalInformation" Type="Edm.String" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="qualification" Type="Edm.String" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="qualificationDescription" Type="Edm.String" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+      </EntityType>
+      <EntityType Name="timeFilter" sap:content-version="1">
+        <Key>
+          <PropertyRef Name="id"/>
+        </Key>
+        <Property Name="id" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="description" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="default" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="start" Type="Edm.DateTime" Nullable="false" Precision="0" sap:unicode="false" sap:creatable="false" sap:updatable="false"
+                  sap:sortable="false" sap:filterable="false"/>
+        <Property Name="end" Type="Edm.DateTime" Nullable="false" Precision="0" sap:unicode="false" sap:creatable="false" sap:updatable="false"
+                  sap:sortable="false" sap:filterable="false"/>
+      </EntityType>
+      <EntityType Name="configuration" sap:content-version="1">
+        <Key>
+          <PropertyRef Name="catalogId"/>
+          <PropertyRef Name="id"/>
+        </Key>
+        <Property Name="catalogId" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="id" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="name" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="default" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Indicador" sap:creatable="false" sap:updatable="false"
+                  sap:sortable="false" sap:filterable="false"/>
+        <NavigationProperty Name="configurationToPositions" Relationship="RSLT.MVS_VITAL_SIGNS_SRV.toConfigurationPositions"
+                            FromRole="FromRole_toConfigurationPositions" ToRole="ToRole_toConfigurationPositions"/>
+      </EntityType>
+      <EntityType Name="configurationPosition" sap:content-version="1">
+        <Key>
+          <PropertyRef Name="catalogId"/>
+          <PropertyRef Name="id"/>
+          <PropertyRef Name="positionId"/>
+        </Key>
+        <Property Name="catalogId" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="id" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+        <Property Name="positionId" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+                  sap:filterable="false"/>
+      </EntityType>
+      <Association Name="toConfigurationPositions" sap:content-version="1">
+        <End Type="RSLT.MVS_VITAL_SIGNS_SRV.configuration" Multiplicity="1" Role="FromRole_toConfigurationPositions"/>
+        <End Type="RSLT.MVS_VITAL_SIGNS_SRV.configurationPosition" Multiplicity="*" Role="ToRole_toConfigurationPositions"/>
+        <ReferentialConstraint>
+          <Principal Role="FromRole_toConfigurationPositions">
+            <PropertyRef Name="id"/>
+            <PropertyRef Name="catalogId"/>
+          </Principal>
+          <Dependent Role="ToRole_toConfigurationPositions">
+            <PropertyRef Name="id"/>
+            <PropertyRef Name="catalogId"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <EntityContainer Name="RSLT.MVS_VITAL_SIGNS_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+        <EntitySet Name="catalogSet" EntityType="RSLT.MVS_VITAL_SIGNS_SRV.catalog" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+                   sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+        <EntitySet Name="measuredValueSet" EntityType="RSLT.MVS_VITAL_SIGNS_SRV.measuredValue" sap:deletable="false" sap:pageable="false"
+                   sap:addressable="false" sap:content-version="1"/>
+        <EntitySet Name="timeFilterSet" EntityType="RSLT.MVS_VITAL_SIGNS_SRV.timeFilter" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+                   sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+        <EntitySet Name="configurationSet" EntityType="RSLT.MVS_VITAL_SIGNS_SRV.configuration" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+                   sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+        <EntitySet Name="configurationPositionSet" EntityType="RSLT.MVS_VITAL_SIGNS_SRV.configurationPosition" sap:creatable="false" sap:updatable="false"
+                   sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+        <AssociationSet Name="toConfigurationPositionsSet" Association="RSLT.MVS_VITAL_SIGNS_SRV.toConfigurationPositions" sap:creatable="false"
+                        sap:updatable="false" sap:deletable="false" sap:content-version="1">
+          <End EntitySet="configurationSet" Role="FromRole_toConfigurationPositions"/>
+          <End EntitySet="configurationPositionSet" Role="ToRole_toConfigurationPositions"/>
+        </AssociationSet>
+        <FunctionImport Name="saveMeasuredValues" ReturnType="Collection(RSLT.MVS_VITAL_SIGNS_SRV.measuredValue)" EntitySet="measuredValueSet"
+                        m:HttpMethod="GET" sap:action-for="RSLT.MVS_VITAL_SIGNS_SRV.measuredValue">
+          <Parameter Name="caseid" Type="Edm.String" Mode="In"/>
+          <Parameter Name="deptunit" Type="Edm.String" Mode="In"/>
+          <Parameter Name="institutionid" Type="Edm.String" Mode="In"/>
+          <Parameter Name="movementid" Type="Edm.String" Mode="In"/>
+          <Parameter Name="nursunit" Type="Edm.String" Mode="In"/>
+          <Parameter Name="patientid" Type="Edm.String" Mode="In"/>
+        </FunctionImport>
+      </EntityContainer>
+      <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self"
+                 href="https://SAPDES.GRUPORECOLETAS.COM:443/sap/opu/odata/rslt/MVS_VITAL_SIGNS_SRV/$metadata"/>
+      <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version"
+                 href="https://SAPDES.GRUPORECOLETAS.COM:443/sap/opu/odata/rslt/MVS_VITAL_SIGNS_SRV/$metadata"/>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

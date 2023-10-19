@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:table="sap.ui.table">
+  <Dialog 
+    contentWidth="50%"
+    afterClose="onCancelAddServiceDialog">
+    <customHeader>
+      <Toolbar>
+        <Title text="{i18n>AddServiceDialogTitle}" titleStyle="H3"/>
+      </Toolbar>
+    </customHeader>
+    <SearchField
+         id="serviceDialogSearchField"
+         enableSuggestions="true"
+         enabled="true"        
+         showRefreshButton="false"
+         showSearchButton="true"    
+         liveChange=".onTypeServiceDialog"     
+         search=".onSearchServiceDialog"
+         visible="true"
+     >
+        <SuggestionItem text="{ServiceTree>Ktxt1}" ></SuggestionItem>
+         
+     </SearchField>
+    <table:TreeTable rows="{path:'ServiceTreeFiltered>/results', parameters: {arrayNames:['children']}}" expandFirstLevel="true" selectionMode="None" enableSelectAll="false">
+      <table:columns>
+        <table:Column width="7rem">
+          <table:template>
+            <CheckBox visible="{= !${ServiceTreeFiltered>Tgrkz}}" selected="{ServiceTreeFiltered>Selected}"/>
+          </table:template>
+        </table:Column>
+        <table:Column>
+          <Label text="{i18n>Description}"/>
+          <table:template>
+            <Text text="{ServiceTreeFiltered>Ktxt1}"/>
+          </table:template>
+        </table:Column>
+      </table:columns>
+    </table:TreeTable>
+    <buttons>
+      <Button type="Reject" text="{i18n>Cancel}" press="onCancelAddServiceDialog"/>
+      <Button type="Accept" text="{i18n>Save}" press="onSaveAddServiceDialog"/>
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

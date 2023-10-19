@@ -1,0 +1,639 @@
+<core:FragmentDefinition xmlns:layout="sap.ui.layout"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:table="sap.ui.table"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+>
+	<Panel>
+		<Label
+			text="{i18n>PARTOMOTIV}"
+			tooltip="{i18n>PARTOMOTIV}"
+		/>
+		<TextArea
+			growing="true"
+			growingMaxLines="5"
+			rows="3"
+			value="{CAD_CTREMB>/content/PARTOMOTIV/Value}"
+			editable="{
+				path: 'CAD_CTREMB>/Dokst',
+				formatter: '.formatter.isEditable'
+			}"
+			width="100%"
+		/>
+		<Label
+			text="{i18n>PARTOOBS}"
+			tooltip="{i18n>PARTOOBS}"
+			class="sapUiSmallMarginTop"
+		/>
+		<TextArea
+			growing="true"
+			growingMaxLines="5"
+			rows="3"
+			value="{CAD_CTREMB>/content/PARTOOBS/Value}"
+			editable="{
+				path: 'CAD_CTREMB>/Dokst',
+				formatter: '.formatter.isEditable'
+			}"
+			width="100%"
+		/>
+		<Label
+			text="{i18n>PARTOEVO}"
+			tooltip="{i18n>PARTOEVO}"
+			class="sapUiSmallMarginTop"
+		/>
+		<TextArea
+			growing="true"
+			growingMaxLines="5"
+			rows="3"
+			value="{CAD_CTREMB>/content/PARTOEVO/Value}"
+			editable="{
+				path: 'CAD_CTREMB>/Dokst',
+				formatter: '.formatter.isEditable'
+			}"
+			width="100%"
+		/>
+	</Panel>
+	<Panel>
+		<!-- Birth TABLE -->
+		<table:Table
+			id="birthsTable"
+			rows="{CAD_CTREMB>/Births}"
+			fixedColumnCount="1"
+			selectionMode="None"
+			rowActionCount="1"
+			visibleRowCount="{= ${CAD_CTREMB>/Births}.length === 0 ? 2 : ${CAD_CTREMB>/Births}.length + 1}"
+		>
+			<table:extension>
+				<Toolbar>
+					<Title
+						text="{i18n>Births}"
+						titleStyle="H3"
+					/>
+					<ToolbarSpacer/>
+				</Toolbar>
+			</table:extension>
+			<table:columns>
+				<table:Column width="2rem">
+					<Label
+						text="{i18n>EMBRION}"
+						tooltip="{i18n>EMBRION}"
+					/>
+					<table:template>
+						<Text text="{CAD_CTREMB>X01_EMBID}"/>
+					</table:template>
+				</table:Column>
+				<table:Column width="9rem">
+					<Label
+						text="{i18n>PARTOFECHA}"
+						tooltip="{i18n>PARTOFECHA}"
+					/>
+					<table:template>
+						<DatePicker
+							displayFormat="dd.MM.yyyy"
+							value="{CAD_CTREMB>X00TOFECHA}"
+							valueFormat="dd.MM.yyyy"
+							width="100%"
+							change="onChangePARTOFECHA"
+							editable="{
+								path: 'CAD_CTREMB>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						/>
+					</table:template>
+				</table:Column>
+				<table:Column width="8rem">
+					<Label
+						text="{i18n>PARTOHORA}"
+						tooltip="{i18n>PARTOHORA}"
+					/>
+					<table:template>
+						<TimePicker displayFormat="HH:mm" value="{CAD_CTREMB>X00TOHORA}" valueFormat="HH:mm"
+							editable="{path: 'CAD_CTREMB>/Dokst', formatter: '.formatter.isEditable'}"/>
+					</table:template>
+				</table:Column>
+				<table:Column width="9.5rem">
+					<Label
+						text="{i18n>X00EMANAS}"
+						tooltip="{i18n>X00EMANAS}"
+					/>
+					<table:template >
+						<Input
+							value="{CAD_CTREMB>EGAMPLIADA}"
+							editable="{
+								path: 'CAD_CTREMB>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+							fieldWidth="100%"
+							maxLength="32"						
+						/>
+					</table:template>
+				</table:Column>
+				<table:Column width="15rem">
+					<Label
+						text="{i18n>PARTOTIPO}"
+						tooltip="{i18n>PARTOTIPO}"
+					/>
+					<table:template>
+						<Select
+							items="{KeyValue>/PARTOTIPO}"
+							selectedKey="{CAD_CTREMB>X00TOTIPO}"
+							enabled="{
+								path: 'CAD_CTREMB>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+							width="100%"
+						>
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									styleClass="sapUiSmallMarginEnd"
+								/>
+							</layoutData>
+							<core:Item
+								key="{KeyValue>KeyValue}"
+								text="{KeyValue>KeyText}"
+							/>
+						</Select>
+					</table:template>
+				</table:Column>
+				<table:Column width="11rem">
+					<Label
+						text="{i18n>PARTOCESAR}"
+						tooltip="{i18n>PARTOCESAR}"
+					/>
+					<table:template>
+						<Select
+							items="{KeyValue>/X00TOCESAR}"
+							selectedKey="{CAD_CTREMB>X00TOCESAR}"
+							enabled="{
+								path: 'CAD_CTREMB>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+							width="100%"
+						>
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									styleClass="sapUiSmallMarginEnd"
+								/>
+							</layoutData>
+							<core:Item
+								key="{KeyValue>KeyValue}"
+								text="{KeyValue>KeyText}"
+							/>
+						</Select>
+					</table:template>
+				</table:Column>
+				<table:Column width="10rem">
+					<Label
+						text="{i18n>Sex}"
+						tooltip="{i18n>Sex}"
+					/>
+					<table:template>
+						<Select
+							items="{KeyValue>/EMB_SEXO}"
+							selectedKey="{CAD_CTREMB>NACSEXO}"
+							enabled="{
+								path: 'CAD_CTREMB>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+							width="100%"
+						>
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									styleClass="sapUiSmallMarginEnd"
+								/>
+							</layoutData>
+							<core:Item
+								key="{KeyValue>KeyValue}"
+								text="{KeyValue>KeyText}"
+							/>
+						</Select>
+					</table:template>
+				</table:Column>
+				<table:Column width="7rem">
+					<Label
+						text="{i18n>Status}"
+						tooltip="{i18n>Status}"
+					/>
+					<table:template>
+						<Select
+							items="{KeyValue>/DECESO}"
+							selectedKey="{CAD_CTREMB>DECESO}"
+							enabled="{
+								path: 'CAD_CTREMB>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+							width="100%"
+						>
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									styleClass="sapUiSmallMarginEnd"
+								/>
+							</layoutData>
+							<core:Item
+								key="{KeyValue>KeyValue}"
+								text="{KeyValue>KeyText}"
+							/>
+						</Select>
+					</table:template>
+				</table:Column>
+				<table:Column width="5rem">
+					<Label
+						text="{i18n>PESOG}"
+						tooltip="{i18n>PESOG}"
+					/>
+					<table:template>
+						<Input
+							type="Number"
+							value="{CAD_CTREMB>NACPESO}"
+							maxLength="7"
+							editable="{
+								path: 'CAD_CTREMB>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						/>
+					</table:template>
+				</table:Column>
+				<table:Column width="5rem">
+					<Label
+						text="{i18n>APGAR}"
+						tooltip="{i18n>APGAR}"
+					/>
+					<table:template>
+						<Input
+							value="{CAD_CTREMB>APGAR}"
+							editable="{
+								path: 'CAD_CTREMB>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+							fieldWidth="100%"
+							maxLength="50"
+						/>
+					</table:template>
+				</table:Column>
+				<table:Column width="12rem">
+					<Label
+						text="{i18n>ALUMBRA}"
+						tooltip="{i18n>ALUMBRA}"
+					/>
+					<table:template>
+						<Select
+							items="{KeyValue>/ALUMBRA}"
+							selectedKey="{CAD_CTREMB>ALUMBRA}"
+							enabled="{
+								path: 'CAD_CTREMB>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+							width="100%"
+						>
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									styleClass="sapUiSmallMarginEnd"
+								/>
+							</layoutData>
+							<core:Item
+								key="{KeyValue>KeyValue}"
+								text="{KeyValue>KeyText}"
+							/>
+						</Select>
+					</table:template>
+				</table:Column>
+				<table:Column width="10rem">
+					<Label
+						text="{i18n>CORDON}"
+						tooltip="{i18n>CORDON}"
+					/>
+					<table:template>
+						<Select
+							items="{KeyValue>/CORDON}"
+							selectedKey="{CAD_CTREMB>CORDON}"
+							enabled="{
+								path: 'CAD_CTREMB>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+							width="100%"
+						>
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									styleClass="sapUiSmallMarginEnd"
+								/>
+							</layoutData>
+							<core:Item
+								key="{KeyValue>KeyValue}"
+								text="{KeyValue>KeyText}"
+							/>
+						</Select>
+					</table:template>
+				</table:Column>
+				<table:Column width="3.2rem">
+					<Label
+						text="{i18n>PH}"
+						tooltip="{i18n>PH}"
+					/>
+					<table:template>
+						<Input
+							type="Number"
+							value="{CAD_CTREMB>PH}"
+							maxLength="7"
+							editable="{
+								path: 'CAD_CTREMB>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						/>
+					</table:template>
+				</table:Column>
+				<table:Column width="10rem">
+					<Label
+						text="{i18n>X00TOFINTP}"
+						tooltip="{i18n>X00TOFINTP}"
+					/>
+					<table:template>
+						<Select
+							items="{KeyValue>/X00TOFINTP}"
+							selectedKey="{CAD_CTREMB>X00TOFINTP}"
+							enabled="{
+								path: 'CAD_CTREMB>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+							width="100%"
+						>
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									styleClass="sapUiSmallMarginEnd"
+								/>
+							</layoutData>
+							<core:Item
+								key="{KeyValue>KeyValue}"
+								text="{KeyValue>KeyText}"
+							/>
+						</Select>
+					</table:template>
+				</table:Column>
+			</table:columns>
+		</table:Table>
+		<!--  -->
+		<form:SimpleForm
+			id="formBirths"
+			editable="{
+				path: 'CAD_CTREMB>/Dokst',
+				formatter: '.formatter.isEditable'
+			}"
+			layout="ResponsiveGridLayout"
+			labelSpanXL="4"
+			labelSpanL="4"
+			labelSpanM="4"
+			labelSpanS="12"
+			adjustLabelSpan="false"
+			emptySpanXL="0"
+			emptySpanL="0"
+			emptySpanM="0"
+			emptySpanS="0"
+			columnsXL="3"
+			columnsL="3"
+			columnsM="3"
+			singleContainerFullSize="false" 
+		>
+		<core:Title text=" " />
+		<Label text=" "/>
+			<CheckBox
+				text="{i18n>PARTOEPISI}"
+				selected="{=${CAD_CTREMB>/content/PARTOEPISI/Value} === 'X'}"
+				select="onSelect($event, 'CAD_CTREMB','PARTOEPISI')"
+				editable="{
+					path: 'CAD_CTREMB>/Dokst',
+					formatter: '.formatter.isEditable'
+				}"
+			/>
+			
+			<Label text="{i18n>PARTODESGR}"/>
+			<Select
+				items="{KeyValue>/PARTODESGR}"
+				selectedKey="{CAD_CTREMB>/content/PARTODESGR/Value}"
+				enabled="{
+					path: 'CAD_CTREMB>/Dokst',
+					formatter: '.formatter.isEditable'
+				}"	
+			>
+				<core:Item
+					key="{KeyValue>KeyValue}"
+					text="{KeyValue>KeyText}"
+				/>
+				
+			</Select>
+			<core:Title text=" " />
+			<Label text=" "/>
+			<CheckBox
+				text="{i18n>LIGADURA_T}"
+				selected="{=${CAD_CTREMB>/content/LIGADURA_T/Value} === 'X'}"
+				select="onSelect($event, 'CAD_CTREMB','LIGADURA_T')"
+				editable="{
+					path: 'CAD_CTREMB>/Dokst',
+					formatter: '.formatter.isEditable'
+				}"
+			/>
+
+			<core:Title text=" " />
+			<Label text=" "/>
+			<CheckBox
+				text="{i18n>PARTOTSANG}"
+				selected="{=${CAD_CTREMB>/content/PARTOTSANG/Value} === 'X'}"
+				select="onSelect($event, 'CAD_CTREMB','PARTOTSANG')"
+				editable="{
+					path: 'CAD_CTREMB>/Dokst',
+					formatter: '.formatter.isEditable'
+				}"
+			/>
+			<Label text="{i18n>BANCOSANGR}"/>
+				<Select
+					items="{KeyValue>/BANCOSANGR}"
+					selectedKey="{CAD_CTREMB>/content/BANCOSANGR/Value}"
+					enabled="{
+						path: 'CAD_CTREMB>/Dokst',
+						formatter: '.formatter.isEditable'
+					}"
+				>
+					<core:Item
+						key="{KeyValue>KeyValue}"
+						text="{KeyValue>KeyText}"
+					/>
+				
+				</Select>
+			
+		</form:SimpleForm>
+		<form:SimpleForm
+			id="formBirths2"
+			editable="{
+				path: 'CAD_CTREMB>/Dokst',
+				formatter: '.formatter.isEditable'
+			}"
+			layout="ColumnLayout"
+			columnsM="2"
+			columnsL="3"
+			columnsXL="4"
+		>
+			<Label text="{i18n>ANESTESIST}"/>
+			<Input
+				id="ANESTESIST"
+				value="{CAD_CTREMB>/content/ANESTESIST/Value}"
+				editable="{
+					path: 'CAD_CTREMB>/Dokst',
+					formatter: '.formatter.isEditable'
+				}"
+			/>
+			<Label text="{i18n>MATRONA}"/>
+			<Input
+				id="MATRONA"
+				value="{CAD_CTREMB>/content/MATRONA/Value}"
+				editable="{
+					path: 'CAD_CTREMB>/Dokst',
+					formatter: '.formatter.isEditable'
+				}"
+			/>
+			<Label text="{i18n>GINECOLOGO}"/>
+			<Input
+				id="GINECOLOGO"
+				value="{CAD_CTREMB>/content/GINECOLOGO/Value}"
+				editable="{
+					path: 'CAD_CTREMB>/Dokst',
+					formatter: '.formatter.isEditable'
+				}"
+			/>
+		</form:SimpleForm>
+		<CheckBox
+			selected="{=${CAD_CTREMB>/content/PARTOPLGEN/Value}==='X'}"
+			text="{i18n>PARTOPLGEN}"
+			select="onBirthsTemplatePress"
+			editable="{
+				path: 'CAD_CTREMB>/Dokst',
+				formatter: '.formatter.isEditable'
+			}"
+		/>
+		<TextArea
+			growing="true"
+			growingMaxLines="5"
+			rows="3"
+			value="{CAD_CTREMB>/content/PARTOPL/Value}"
+			editable="{
+				parts: ['CAD_CTREMB>/Dokst', 'CAD_CTREMB>/content/PARTOPLGEN/Value'],
+				formatter: '.formatter.isEditable'
+			}"
+			width="100%"
+		/>
+		<HBox
+			alignItems="Center"
+			class="sapUiSmallMarginTop"
+		>
+			<Label
+				text="{i18n>LACTANCIA}"
+				width="8rem"
+				labelFor="lactanciaSelect"
+				class="sapUiSmallMarginEnd"
+			/>
+			<Select
+				id="lactanciaSelect"
+				items="{KeyValue>/LACTANCIA}"
+				selectedKey="{CAD_CTREMB>/content/LACTANCIA/Value}"
+				enabled="{
+					parts: ['CAD_CTREMB>/Dokst'],
+					formatter: '.formatter.isEditable'
+				}"
+			>
+				<core:Item
+					key="{KeyValue>KeyValue}"
+					text="{KeyValue>KeyText}"
+				/>
+			</Select>
+		</HBox>
+		<HBox alignItems="Center">
+			<Label
+				text="{i18n>PARTOCOMP}"
+				width="8rem"
+				labelFor="complicacionesSelect"
+				class="sapUiSmallMarginEnd"
+			/>
+			<Select
+				id="complicacionesSelect"
+				items="{KeyValue>/PARTOCOMP}"
+				selectedKey="{CAD_CTREMB>/content/PARTOCOMP/Value}"
+				enabled="{
+					parts: ['CAD_CTREMB>/Dokst'],
+					formatter: '.formatter.isEditable'
+				}"
+			>
+				<core:Item
+					key="{KeyValue>KeyValue}"
+					text="{KeyValue>KeyText}"
+				/>
+			</Select>
+		</HBox>
+		<TextArea
+			growing="true"
+			growingMaxLines="5"
+			rows="3"
+			value="{CAD_CTREMB>/content/PARTOCOMPC/Value}"
+			editable="{
+				parts: ['CAD_CTREMB>/Dokst'],
+				formatter: '.formatter.isEditable'
+			}"
+			width="100%"
+		/>
+		<Label
+			text="{i18n>PARTOEVORN}"
+			width="8rem"
+			labelFor="EVORN_POST"
+			class="sapUiSmallMarginTop"
+		/>
+		<TextArea
+			id="EVORN_POST"
+			growing="true"
+			growingMaxLines="5"
+			rows="3"
+			value="{CAD_CTREMB>/content/PARTOEVORN/Value}"
+			editable="{
+				parts: ['CAD_CTREMB>/Dokst'],
+				formatter: '.formatter.isEditable'
+			}"
+			width="100%"
+		/>
+		<HBox>
+			<Button
+				width="15rem"
+				text="Recomendaciones parto"
+				press="onPARTORECALPressed('PLANTILLA_1')"
+				class="sapUiSmallMargin"
+				enabled="{
+                    path: 'CAD_CTREMB>/Dokst',
+                    formatter: '.formatter.isEditable'
+                }"
+			/>
+			<Button
+				width="15rem"
+				text="Recomendaciones cesárea"
+				press="onPARTORECALPressed('PLANTILLA_2')"
+				class="sapUiSmallMargin"
+				enabled="{
+                    path: 'CAD_CTREMB>/Dokst',
+                    formatter: '.formatter.isEditable'
+                }"
+			/>
+		</HBox>
+		<TextArea
+			id="partorecalTA"
+			growing="true"
+			growingMaxLines="5"
+			rows="3"
+			value="{CAD_CTREMB>/content/PARTORECAL/Value}"
+			editable="{
+				parts: ['CAD_CTREMB>/Dokst'],
+				formatter: '.formatter.isEditable'
+			}"
+			width="100%"
+		/>
+	</Panel>
+</core:FragmentDefinition>

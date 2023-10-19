@@ -1,0 +1,150 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+>
+	<Panel>
+		<form:SimpleForm
+			id="formDischargeEmb"
+			editable="{
+				parts: ['CAD_CTREMB>/Dokst', 'CAD_CTREMB>/content/MOV_FDISFL/Value'],
+				formatter: '.formatter.isEditable'
+			}"
+			layout="ResponsiveGridLayout"
+			labelSpanXL="4"
+			labelSpanL="4"
+			labelSpanM="4"
+			labelSpanS="12"
+			adjustLabelSpan="false"
+			emptySpanXL="0"
+			emptySpanL="0"
+			emptySpanM="0"
+			emptySpanS="0"
+			columnsXL="2"
+			columnsL="2"
+			columnsM="2"
+			singleContainerFullSize="false"
+		>
+			<core:Title text=" "/>
+			<Label text="{i18n>MOV_FDATDI}"/>
+			<DatePicker
+				displayFormat="dd.MM.yyyy"
+				value="{CAD_CTREMB>/content/MOV_FDATDI/Value}"
+				valueFormat="dd.MM.yyyy"
+				width="100%"
+				change="onMOV_FDATDIChange"
+				editable="{
+					parts: ['CAD_CTREMB>/Dokst', 'CAD_CTREMB>/content/MOV_FDISFL/Value'],
+					formatter: '.formatter.isEditable'
+				}"
+			/>
+			<TimePicker
+				displayFormat="HH:mm"
+				value="{CAD_CTREMB>/content/MOV_FTIMDI/Value}"
+				valueFormat="HH:mm"
+				editable="{
+					parts: ['CAD_CTREMB>/Dokst', 'CAD_CTREMB>/content/MOV_FDISFL/Value'],
+					formatter: '.formatter.isEditable'
+				}"
+			>
+				<layoutData>
+					<l:GridData span="XL3 L3 M4 S4"/>
+				</layoutData>
+			</TimePicker>
+			<Label text="{i18n>MOV_FDTYPE}"/>
+			<Select
+				items="{KeyValue>/MOV_FDTYPE}"
+				selectedKey="{CAD_CTREMB>/content/MOV_FDTYPE/Value}"
+				enabled="{
+					parts: ['CAD_CTREMB>/Dokst', 'CAD_CTREMB>/content/MOV_FDISFL/Value'],
+					formatter: '.formatter.isEditable'
+				}"
+			>
+				<core:Item
+					key="{KeyValue>KeyValue}"
+					text="{KeyValue>KeyText}"
+				/>
+			</Select>
+			<Label text="{i18n>MOV_CSTRAS}"/>
+			<Select
+				items="{KeyValue>/MOV_CSTRAS}"
+				selectedKey="{CAD_CTREMB>/content/MOV_CSTRAS/Value}"
+				enabled="{
+					parts: ['CAD_CTREMB>/Dokst', 'CAD_CTREMB>/content/MOV_FDISFL/Value'],
+					formatter: '.formatter.isEditable'
+				}"
+			>
+				<core:Item
+					key="{KeyValue>KeyValue}"
+					text="{KeyValue>KeyText}"
+				/>
+			</Select>
+			<core:Title text=" "/>
+			<Label/>
+			<Button
+				enabled="{
+					path: 'CAD_CTREMB>/Dokst',
+					formatter: '.formatter.isEditable'
+				}"
+				press="onDischargeButtonPress($event, 'CAD_CTREMB')"
+				text="{=${CAD_CTREMB>/content/MOV_FDISFL/Value} === 'X' ? ${i18n>WithDischarge} : ${i18n>WithoutDischarge} }"
+			/>
+			<Label text="{i18n>MOV_FSTYDA}"/>
+			<Select
+				items="{KeyValue>/MOV_FSTYDA}"
+				selectedKey="{CAD_CTREMB>/content/MOV_FSTYDA/Value}"
+				enabled="{
+					parts: ['CAD_CTREMB>/Dokst', 'CAD_CTREMB>/content/MOV_FDISFL/Value'],
+					formatter: '.formatter.isEditable'
+				}"
+			>
+				<core:Item
+					key="{KeyValue>KeyValue}"
+					text="{KeyValue>KeyText}"
+				/>
+			</Select>
+			<Label text="{i18n>MOV_FTRADI}"/>
+			<CheckBox
+				selected="{=${CAD_CTREMB>/content/MOV_FTRADI/Value} === 'X'}"
+				select="onSelect($event, 'CAD_CTREMB','MOV_FTRADI')"
+				editable="{
+					parts: ['CAD_CTREMB>/Dokst', 'CAD_CTREMB>/content/MOV_FDISFL/Value'],
+					formatter: '.formatter.isEditable'
+				}"
+			>
+				<layoutData>
+					<l:GridData span="XL2 L2 M3 S4"/>
+				</layoutData>
+			</CheckBox>
+			<Select
+				items="{KeyValue>/MOV_FTRADC}"
+				selectedKey="{CAD_CTREMB>/content/MOV_FTRADC/Value}"
+				enabled="{
+					parts: ['CAD_CTREMB>/Dokst', 'CAD_CTREMB>/content/MOV_FDISFL/Value'],
+					formatter: '.formatter.isEditable'
+				}"
+			>
+				<core:Item
+					key="{KeyValue>KeyValue}"
+					text="{KeyValue>KeyText}"
+				/>
+			</Select>
+		</form:SimpleForm>
+		<Label
+			text="{i18n>MOV_FREADI}"
+			tooltip="{i18n>MOV_FREADI}"
+		/>
+		<TextArea
+			growing="true"
+			growingMaxLines="5"
+			rows="3"
+			value="{CAD_CTREMB>/content/MOV_FREADI/Value}"
+			editable="{
+				parts: ['CAD_CTREMB>/Dokst', 'CAD_CTREMB>/content/MOV_FDISFL/Value'],
+				formatter: '.formatter.isEditable'
+			}"
+			width="100%"
+		/>
+	</Panel>
+</core:FragmentDefinition>

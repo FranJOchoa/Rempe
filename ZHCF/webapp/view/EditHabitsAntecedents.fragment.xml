@@ -1,0 +1,104 @@
+<c:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:c="sap.ui.core"
+>
+  <Dialog
+    title="{i18n>AddSocialHabitsDialogTitle}"
+    id="editHabitsAntecedents"
+    contentWidth="40%"
+    contentHeight="260px"
+    class="sapUiContentPadding"    
+  >
+    <customHeader>
+      <Toolbar>
+        <Title text="{i18n>AddSocialHabitsDialogTitle}" titleStyle="H3" />
+      </Toolbar>
+    </customHeader>
+    <HBox width="100%" justifyContent="SpaceBetween">
+      <VBox width="100%" class="sapUiMediumPaddingBeginEnd">
+        <layoutData>
+          <FlexItemData growFactor="1"/>
+        </layoutData>
+        <Label text="{i18n>Habit}"/>
+        <Input value="{NewHabit>/Antecedent/NameChild}" editable="false"/>
+      </VBox>
+      <VBox width="100%" class="sapUiMediumPaddingBeginEnd">
+        <layoutData>
+          <FlexItemData growFactor="1"/>
+        </layoutData>
+        <Label text="{i18n>Consumer}"/>
+        <Select id="Edit_ZMEDMB_HAB_EVAL" selectedKey="{NewHabit>/Evaluation}" items="{KeyValue>/ZMEDMB_HAB_EVAL}" width="100%">
+          <c:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}"/>
+        </Select>
+      </VBox>
+    </HBox>
+    <VBox width="100%" class="sapUiMediumPaddingBeginEnd sapUiSmallMarginTop" visible="{= ${NewHabit>/Evaluation} === '2'}">
+      <Title text="{i18n>HabitualConsumption}" titleStyle="H4"/>
+      <HBox alignItems="Center" width="100%">
+        <Label text="{i18n>From}" class="sapUiSmallMarginEnd"/>
+        <Input value="{NewHabit>/From}" type="Number" width="100%">
+          <layoutData>
+            <FlexItemData growFactor="1" styleClass="sapUiSmallMarginEnd"/>
+          </layoutData>
+        </Input>
+        <Label text="{i18n>Years}," class="sapUiSmallMarginEnd"/>
+        <Label text="{i18n>To}" class="sapUiSmallMarginEnd"/>
+        <Input value="{NewHabit>/To}" type="Number" width="100%">
+          <layoutData>
+            <FlexItemData growFactor="1" styleClass="sapUiSmallMarginEnd"/>
+          </layoutData>
+        </Input>
+        <Label text="{i18n>Years}"/>
+      </HBox>
+      <HBox alignItems="Center">
+        <Label text="{i18n>Frequency}" class="sapUiSmallMarginEnd"/>
+        <Select id="Edit_ZMEDMB_FREQ" selectedKey="{NewHabit>/Frequency}" items="{KeyValue>/ZMEDMB_FREQ}" width="100%">
+          <layoutData>
+            <FlexItemData growFactor="1" styleClass="sapUiSmallMarginEnd"/>
+          </layoutData>
+          <c:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}"/>
+        </Select>
+        <Select id="Edit_ZMEDMB_TOBACCO" selectedKey="{NewHabit>/TobaccoType}" items="{KeyValue>/ZMEDMB_TOBACCO}"
+                visible="{= ${NewHabit>/TobaccoType} !== '' ? true : false}" width="100%">
+          <layoutData>
+            <FlexItemData growFactor="1" styleClass="sapUiSmallMarginEnd"/>
+          </layoutData>
+          <c:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}"/>
+        </Select>
+        <Select id="Edit_ZMEDMB_FREQ_UNIT" selectedKey="{NewHabit>/FrequencyUnit}" items="{KeyValue>/ZMEDMB_FREQ_UNIT}" width="100%">
+          <layoutData>
+            <FlexItemData growFactor="1" styleClass="sapUiSmallMarginEnd"/>
+          </layoutData>
+          <c:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}"/>
+        </Select>
+        <Select id="Edit_ZMEDMB_FREQ_COND" selectedKey="{NewHabit>/FrequencyCond}" items="{KeyValue>/ZMEDMB_FREQ_COND}" width="100%">
+          <layoutData>
+            <FlexItemData growFactor="1"/>
+          </layoutData>
+          <c:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}"/>
+        </Select>
+      </HBox>
+      <HBox alignItems="Center">
+        <Label text="{i18n>GrWeek}" class="sapUiSmallMarginEnd"/>
+        <Input value="{NewHabit>/Quantity}" type="Number" width="100%">
+          <layoutData>
+            <FlexItemData styleClass="sapUiSmallMarginEnd"/>
+          </layoutData>
+        </Input>
+        <Label text="{i18n>Comments}" class="sapUiSmallMarginEnd"  visible="{= ${NewHabit>/Type} === 'DROGAS' ? true : false}"/>
+          <TextArea value="{NewHabit>/Comment}" visible="{= ${NewHabit>/Type} === 'DROGAS' ? true : false}" width="100%" maxLength="60" liveChange="onLiveChangeMaxLength" showExceededText="true" rows="1">
+            <layoutData>
+              <FlexItemData growFactor="1"/>
+            </layoutData>
+          </TextArea>
+          <Label text="{i18n>Type}" class="sapUiSmallMarginEnd" visible="{= ${NewHabit>/Type} === 'OTROS' ? true : false}"/>
+          <TextArea value="{NewHabit>/OtherTypeText}" visible="{= ${NewHabit>/Type} === 'OTROS' ? true : false}" width="100%" maxLength="20"  liveChange="onLiveChangeMaxLength" showExceededText="true" rows="1"/>
+      </HBox>
+    </VBox>
+    <buttons>
+      <Button text="{i18n>Cancel}" press="closeUpdateDialog" />
+      <Button type="Reject" text="{i18n>Eliminate}" press="onDeleteSocialHabits"/>
+      <Button type="Accept" text="{i18n>Save}" press="onEditSocialHabits"/>          
+    </buttons>
+  </Dialog>
+</c:FragmentDefinition>

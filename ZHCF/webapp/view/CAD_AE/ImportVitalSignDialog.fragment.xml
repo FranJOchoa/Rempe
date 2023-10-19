@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog title="{i18n>ImportVitalSignDialogTitle}" contentWidth="33%" contentHeight="50%" busyIndicatorDelay="0">
+    <List mode="MultiSelect" items="{VitalSigns>/CAD_AETable/results}">
+      <StandardListItem
+        title="{path: 'VitalSigns>dateTime', type: 'sap.ui.model.type.DateTime'} - [{VitalSigns>catalog/description}] {VitalSigns>valueNum} {VitalSigns>catalog/unit}"
+        selected="{parts: [{value: 'CLI_FVSID'}, 'VitalSigns>valueId', 'CAD_AE>/VitalSignsExamTable'], formatter: '.formatter.dialogSelectedItem'}"/>
+    </List>
+    <buttons>
+      <Button type="Reject" text="{i18n>Cancel}" press="onCancelImportDialog"/>
+      <Button type="Accept" text="{i18n>Save}" press="onSaveImportVitalSignDialog($event, 'CAD_AE')"/>
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

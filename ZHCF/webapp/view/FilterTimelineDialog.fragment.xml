@@ -1,0 +1,46 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <ViewSettingsDialog confirm="onFilterTimelineDialogConfirm" cancel="onFilterTimelineDialogCancel" resetFilters="onFilterTimelineDialogReset">
+    <filterItems>
+      <ViewSettingsFilterItem text="{i18n>Type}" key="type" items="{TypesReduced>/results}">
+        <items>
+          <ViewSettingsItem
+            text="{path: 'TypesReduced>type', formatter: '.formatter.summaryType', sorter: {path: 'type', descending: true, formatter: '.formatter.summaryType'}}"
+            key="{TypesReduced>type}"/>
+        </items>
+      </ViewSettingsFilterItem>
+      <ViewSettingsFilterItem text="{i18n>DocumentationUnit}" key="documentationUnit" items="{DocumentationUnitsReduced>/results}">
+        <items>
+          <ViewSettingsItem text="{path: 'DocumentationUnitsReduced>unit', sorter: {path: 'unit', descending: true}}"
+                            key="{DocumentationUnitsReduced>unit}"/>
+        </items>
+      </ViewSettingsFilterItem>
+      <ViewSettingsFilterItem text="{i18n>Responsible}" key="responsible" items="{ResponsiblesReduced>/results}">
+        <items>
+          <ViewSettingsItem text="{path: 'ResponsiblesReduced>responsible', sorter: {path: 'responsible', descending: true}}"
+                            key="{ResponsiblesReduced>responsible}"/>
+        </items>
+      </ViewSettingsFilterItem>
+      <ViewSettingsCustomItem text="{i18n>Date}" key="datetime">
+        <customControl>
+          <VBox class="sapUiTinyMargin">
+            <Label text="{i18n>Date}" labelFor="dateRange"/>
+            <HBox>
+              <DateRangeSelection id="dateRange" displayFormat="dd/MM/yyyy" change="onDateFilterChange">
+                <layoutData>
+                  <FlexItemData growFactor="1"/>
+                </layoutData>
+              </DateRangeSelection>
+              <Button icon="sap-icon://clear-filter" press="onClearDateRange"/>
+            </HBox>
+          </VBox>
+        </customControl>
+      </ViewSettingsCustomItem>
+      <ViewSettingsFilterItem text="{i18n>ResponsibleGroup}" key="responsibleGroup" items="{ResponsiblesGroupReduced>/results}">
+        <items>
+          <ViewSettingsItem text="{path: 'ResponsiblesGroupReduced>responsibleGroup', sorter: {path: 'responsibleGroup', descending: true}}"
+                            key="{ResponsiblesGroupReduced>responsibleGroup}"/>
+        </items>
+      </ViewSettingsFilterItem>
+    </filterItems>
+  </ViewSettingsDialog>
+</core:FragmentDefinition>

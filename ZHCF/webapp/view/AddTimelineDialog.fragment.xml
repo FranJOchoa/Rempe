@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog 
+    title="{i18n>AddTimelineDialogTitle}" 
+    contentWidth="43%" 
+    contentHeight="60%" 
+    class="sapUiContentPadding"
+    afterClose="onCancelAddTimelineDialog">
+    <VBox width="100%">
+      <Label text="{i18n>Category}" labelFor="category" class="sapUiSmallMarginTop"/>
+      <ComboBox editable="{selectedNote>/Interlocutor}" id="addTimelineDialogCategory" items="{path: 'NotesCategories>/results', sorter: {path: 'McatText', group: true}}" 
+      selectedKey="{selectedNote>/Category}" width="100%">
+        <core:Item key="{NotesCategories>CatId}" text="{NotesCategories>CatText}"/>
+      </ComboBox>
+      <Label text="{i18n>NoteContent}" labelFor="note" class="sapUiSmallMarginTop"/>
+      <TextArea id="addTimelineDialogNote" editable="{selectedNote>/Interlocutor}" growing="true" growingMaxLines="15" rows="9" width="100%" value="{selectedNote>/Content}"/>
+    </VBox>
+    <buttons>
+      <Button text="{i18n>Cancel}" press="onCancelAddTimelineDialog"/>
+      <Button type="Reject" visible="{=${selectedNote>/Creation} === 'true' ? false : true}" enabled="{selectedNote>/Interlocutor}" text="{i18n>Anulate}" press="onAnulateAddTimeLineDialog"/>
+      <Button type="Accept" enabled="{selectedNote>/Interlocutor}" text="{i18n>Save}" press="onSaveAddTimelineDialog"/>
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,4 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:core="sap.ui.core">
+  <MessagePage id="ErrorPage" showHeader="false" text="{i18n>ErrorTitle}" enableFormattedText="true" description="{i18n>ErrorDetail}" icon="sap-icon://message-warning">
+  </MessagePage>
+</mvc:View>

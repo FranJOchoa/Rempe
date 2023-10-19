@@ -1,0 +1,67 @@
+<c:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:c="sap.ui.core"
+>
+  <Dialog
+    title="{i18n>AddFamilyAntecedentsDialogTitle}"
+    id="editFamilyAntecedents"
+    contentWidth="40%"
+    contentHeight="300px"
+    class="sapUiContentPadding"
+  >
+    <customHeader>
+      <Toolbar>
+        <Title text="{i18n>AddFamilyAntecedentsDialogTitle}" titleStyle="H3" />
+      </Toolbar>
+    </customHeader>
+    <HBox width="100%">
+      <VBox width="100%" class="sapUiMediumMarginBeginEnd">
+        <Label text="{i18n>Antecedent}" />
+        <Input value="{NewFamilyHistory>/Antecedent/NameChild}" editable="false" />
+        <Label text="{i18n>Comments}" />
+         <TextArea value="{NewFamilyHistory>/Comments}" maxLength="80" liveChange="onLiveChangeMaxLength" showExceededText="true" rows="1" width="100%"/>
+        <Label text="{i18n>Observations}" />
+        <TextArea value="{NewFamilyHistory>/Observations}" width="100%" liveChange="onLiveChangeMaxLength" maxLength="80"
+          showExceededText="true" />
+      </VBox>
+      <VBox width="100%" class="sapUiMediumMarginBeginEnd">
+        <Label text="{i18n>Family}" />
+        <HBox alignItems="Center">
+          <CheckBox selected="{NewFamilyHistory>/Father}" />
+          <Label text="{i18n>Father}" />
+        </HBox>
+        <HBox alignItems="Center">
+          <CheckBox selected="{NewFamilyHistory>/Mother}" />
+          <Label text="{i18n>Mother}" />
+        </HBox>
+        <HBox alignItems="Center">
+          <CheckBox selected="{NewFamilyHistory>/Brother}" />
+          <Label text="{i18n>Brother}" />
+        </HBox>
+        <HBox alignItems="Center">
+          <CheckBox selected="{NewFamilyHistory>/Sister}" />
+          <Label text="{i18n>Sister}" />
+        </HBox>
+        <HBox alignItems="Center">
+          <CheckBox selected="{NewFamilyHistory>/PaternalGrandparents}" />
+          <Label text="{i18n>PaternalGrandparents}" />
+        </HBox>
+        <HBox alignItems="Center">
+          <CheckBox selected="{NewFamilyHistory>/MaternalGrandparents}" />
+          <Label text="{i18n>MaternalGrandparents}" />
+        </HBox>
+        <HBox alignItems="Center">
+          <CheckBox selected="{NewFamilyHistory>/Son}" />
+          <Label text="{i18n>Children}" />
+        </HBox>
+      </VBox>
+    </HBox>
+    <buttons>
+
+      <Button text="{i18n>Cancel}" press="closeUpdateDialog" />
+      <Button type="Reject" text="{i18n>Eliminate}" press="onDeleteFamilyAntecedents"/>
+      <Button type="Accept" text="{i18n>Save}" press="onEditFamilyAntecedents"/>  
+        
+    </buttons>
+  </Dialog>
+</c:FragmentDefinition>

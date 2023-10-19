@@ -1,0 +1,35 @@
+<core:FragmentDefinition xmlns:smartfilterbar="sap.ui.comp.smartfilterbar" xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog 
+    id="addRiskFactorsDialog"
+    contentWidth="43%" 
+    contentHeight="60%" 
+    busyIndicatorDelay="0"
+    afterClose="onCancelAddRiskFactorsDialog">
+    <customHeader>
+      <Toolbar>
+        <Title text="{i18n>AddRiskFactorsDialogTitle}" titleStyle="H3"/>
+      </Toolbar>
+    </customHeader>
+     <SearchField
+         id="RiskFactorSearchField"
+         enableSuggestions="true"
+         enabled="true"        
+         showRefreshButton="false"
+         showSearchButton="true" 
+         liveChange=".onTypeRiskFactor"     
+         search=".onSearchRiskFactor"
+         visible="true"
+     >
+         
+     </SearchField>
+    <List id="RiskFactorsList" mode="MultiSelect" items="{RiskFactorFiltered>/results}">
+      <StandardListItem title="{RiskFactorFiltered>Rsfna}"/>
+    </List>
+    <buttons>
+      <Button type="Reject" text="{i18n>Cancel}" press="onCancelAddRiskFactorsDialog"/>
+      <Button type="Accept" text="{i18n>Save}" press="onSaveAddRiskFactorsDialog($event, false)"/>
+      <Button type="Accept" text="{i18n>SaveAndContinue}" press="onSaveAddRiskFactorsDialog($event, true)"/>       
+
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

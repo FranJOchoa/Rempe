@@ -1,0 +1,16 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Dialog id="OCPrintDialog"  title="{i18n>Documents}">
+	<List
+		backgroundDesign="Solid"
+		items="{OCPrint>/Docs}"
+	>
+	<StandardListItem title="{OCPrint>NameDoc}" press="onOCDialogObjectPress" type="Active"/>
+		
+	</List>
+	<buttons>
+		<Button text="Cerrar" press="onOCDialogClose"/>
+	</buttons>
+	</Dialog>
+</core:FragmentDefinition>

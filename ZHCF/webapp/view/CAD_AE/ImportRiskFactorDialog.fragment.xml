@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog title="{i18n>ImportRiskFactorsDialogTitle}" contentWidth="33%" contentHeight="50%" busyIndicatorDelay="0">
+    <List mode="MultiSelect" items="{PatientRiskFactor>/results}">
+      <StandardListItem title="{PatientRiskFactor>Rsfna}"
+                        selected="{parts: [{value: 'PAT_FRFCOD'}, 'PatientRiskFactor>Rsfnr', 'CAD_AE>/RiskFactors'], formatter: '.formatter.dialogSelectedItem'}"/>
+    </List>
+    <buttons>
+      <Button type="Reject" text="{i18n>Cancel}" press="onCancelImportDialog"/>
+      <Button type="Accept" text="{i18n>Save}" press="onSaveImportRiskFactorDialog($event, 'CAD_AE')"/>
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,75 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog id="addFamilyAntDialog" contentWidth="50%" afterClose="ClearFamilyAntecedents">
+    <customHeader>
+      <Toolbar>
+        <Title text="{i18n>AddFamilyAntecedentsDialogTitle}" titleStyle="H3"/>
+      </Toolbar>
+    </customHeader>    
+    <Wizard showNextButton="false" renderMode="Page">
+            
+      <WizardStep title="{i18n>AntecedentSelection}">
+        <SearchField
+          id="familyAntecedentsSearchField"
+          enableSuggestions="false"
+          enabled="true"        
+          showRefreshButton="false"
+          showSearchButton="true"
+          liveChange=".onTypeFamilyAntecedents"      
+          search=".onSearchFamilyAntecedents"
+          visible="true">                
+        </SearchField>  
+        <Tree items="{path:'AntecedentFiltered>/ZMFH', parameters: {arrayNames:['children']}}" mode="SingleSelectMaster" select="onFamilyAntecedentsSelect">
+          <StandardTreeItem title="{AntecedentFiltered>NameChild}" visible="{parts: ['AntecedentFiltered>children','AntecedentFiltered>IsSelectable'], formatter: '.formatter.antecedentVisible'}"/>
+        </Tree>
+      </WizardStep>
+      <WizardStep title="{i18n>AntecedentDocumentation}">
+        <HBox width="100%">
+          <VBox width="100%" class="sapUiMediumMarginBeginEnd">
+            <Label text="{i18n>Antecedent}"/>
+            <Input value="{NewFamilyHistory>/Antecedent/NameChild}" editable="false"/>
+            <Label text="{i18n>Comments}"/>
+            <TextArea value="{NewFamilyHistory>/Comments}" liveChange="onLiveChangeMaxLength" maxLength="80" showExceededText="true" rows="1" width="100%"/>
+            <Label text="{i18n>Observations}"/>
+            <TextArea value="{NewFamilyHistory>/Observations}" width="100%" liveChange="onLiveChangeMaxLength" maxLength="80" showExceededText="true"/>
+          </VBox>
+          <VBox width="100%" class="sapUiMediumMarginBeginEnd">
+            <Label text="{i18n>Family}"/>
+            <HBox alignItems="Center">
+              <CheckBox selected="{NewFamilyHistory>/Father}"/>
+              <Label text="{i18n>Father}"/>
+            </HBox>
+            <HBox alignItems="Center">
+              <CheckBox selected="{NewFamilyHistory>/Mother}"/>
+              <Label text="{i18n>Mother}"/>
+            </HBox>
+            <HBox alignItems="Center">
+              <CheckBox selected="{NewFamilyHistory>/Brother}"/>
+              <Label text="{i18n>Brother}"/>
+            </HBox>
+            <HBox alignItems="Center">
+              <CheckBox selected="{NewFamilyHistory>/Sister}"/>
+              <Label text="{i18n>Sister}"/>
+            </HBox>
+            <HBox alignItems="Center">
+              <CheckBox selected="{NewFamilyHistory>/PaternalGrandparents}"/>
+              <Label text="{i18n>PaternalGrandparents}"/>
+            </HBox>
+            <HBox alignItems="Center">
+              <CheckBox selected="{NewFamilyHistory>/MaternalGrandparents}"/>
+              <Label text="{i18n>MaternalGrandparents}"/>
+            </HBox>
+            <HBox alignItems="Center">
+              <CheckBox selected="{NewFamilyHistory>/Children}"/>
+              <Label text="{i18n>Children}"/>
+            </HBox>
+          </VBox>
+        </HBox>
+      </WizardStep>
+    </Wizard>
+    <buttons>
+      <Button type="Reject" text="{i18n>Cancel}" press="onCancelAddAllergiesAntecedentsDialog"/>
+      <Button type="Accept" text="{i18n>Save}" visible="{=!!${NewFamilyHistory>/Antecedent/NameChild}}" press="onSaveAddFamilyAntecedentsDialog($event, false)"/>
+      <Button type="Accept" text="{i18n>SaveAndContinue}" visible="{=!!${NewFamilyHistory>/Antecedent/NameChild}}" press="onSaveAddFamilyAntecedentsDialog($event, true)"/>
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

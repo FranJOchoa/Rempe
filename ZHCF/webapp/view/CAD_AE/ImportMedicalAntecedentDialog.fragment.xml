@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog title="{i18n>ImportMedicalAntecedentDialogTitle}" contentWidth="33%" contentHeight="50%" busyIndicatorDelay="0">
+    <List mode="MultiSelect" items="{PatientMedicalHistory>/results}">
+      <StandardListItem
+        title="{path: 'PatientMedicalHistory>DateMedHist', type: 'sap.ui.model.type.DateTime'} - {PatientMedicalHistory>ZPMH/NameChild} ({PatientMedicalHistory>Treatment})"
+        selected="{parts: [{value: 'PAT_FDISID'}, 'PatientMedicalHistory>MedHistid', 'CAD_AE>/MedicalAntecedents'], formatter: '.formatter.dialogSelectedItem'}"/>
+    </List>
+    <buttons>
+      <Button type="Reject" text="{i18n>Cancel}" press="onCancelImportDialog"/>
+      <Button type="Accept" text="{i18n>Save}" press="onSaveImportMedicalAntecedentDialog($event, 'CAD_AE')"/>
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

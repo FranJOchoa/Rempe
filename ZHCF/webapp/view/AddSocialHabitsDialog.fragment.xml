@@ -1,0 +1,116 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog id="addSocialHabitsAntDialog" contentWidth="50%" afterClose="ClearSocialAntecedents">
+    <customHeader>
+      <Toolbar>
+        <Title text="{i18n>AddSocialHabitsDialogTitle}" titleStyle="H3"/>
+      </Toolbar>
+    </customHeader>    
+    <Wizard showNextButton="false" renderMode="Page">
+      <WizardStep title="{i18n>SocialHabitSelection}">
+        <SearchField
+          id="SearchSocialHabits"
+          enableSuggestions="false"
+          enabled="true"        
+          showRefreshButton="false"
+          showSearchButton="true"
+          liveChange=".onTypeSocialHabits"      
+          search=".onSearchSocialHabits"
+          visible="true">                
+        </SearchField>
+        <Tree items="{path:'AntecedentFiltered>/ZSHA', parameters: {arrayNames:['children']}}" mode="SingleSelectMaster" select="onSocialHabitsSelect">
+          <StandardTreeItem title="{AntecedentFiltered>NameChild}"/>
+        </Tree>
+      </WizardStep>
+      <WizardStep title="{i18n>SocialHabitDocumentation}">
+        <HBox width="100%" justifyContent="SpaceBetween">
+          <VBox width="100%" class="sapUiMediumPaddingBeginEnd">
+            <layoutData>
+              <FlexItemData growFactor="1"/>
+            </layoutData>
+            <Label text="{i18n>Habit}"/>
+            <Input value="{NewHabit>/Antecedent/NameChild}" editable="false"/>
+          </VBox>
+          <VBox width="100%" class="sapUiMediumPaddingBeginEnd">
+            <layoutData>
+              <FlexItemData growFactor="1"/>
+            </layoutData>
+            <Label text="{i18n>Consumer}"/>
+            <Select id="ZMEDMB_HAB_EVAL" items="{KeyValue>/ZMEDMB_HAB_EVAL}" change="onZMEDMB_HAB_EVALChange" width="100%">
+              <core:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}"/>
+            </Select>
+          </VBox>
+        </HBox>
+        <VBox width="100%" class="sapUiMediumPaddingBeginEnd sapUiSmallMarginTop" visible="{= ${NewHabit>/ZMEDMB_HAB_EVAL/KeyValue} === '2'}">
+          <Title text="{i18n>HabitualConsumption}" titleStyle="H4"/>
+          <HBox alignItems="Center" width="100%">
+            <Label text="{i18n>From}" class="sapUiSmallMarginEnd"/>
+            <Input value="{NewHabit>/From}" type="Number" width="100%">
+              <layoutData>
+                <FlexItemData growFactor="1" styleClass="sapUiSmallMarginEnd"/>
+              </layoutData>
+            </Input>
+            <Label text="{i18n>Years}," class="sapUiSmallMarginEnd"/>
+            <Label text="{i18n>To}" class="sapUiSmallMarginEnd"/>
+            <Input value="{NewHabit>/To}" type="Number" width="100%">
+              <layoutData>
+                <FlexItemData growFactor="1" styleClass="sapUiSmallMarginEnd"/>
+              </layoutData>
+            </Input>
+            <Label text="{i18n>Years}"/>
+          </HBox>
+          <HBox alignItems="Center">
+            <Label text="{i18n>Frequency}" class="sapUiSmallMarginEnd"/>
+            <Select id="ZMEDMB_FREQ" items="{KeyValue>/ZMEDMB_FREQ}" change="onZMEDMB_FREQChange" width="100%">
+              <layoutData>
+                <FlexItemData growFactor="1" styleClass="sapUiSmallMarginEnd"/>
+              </layoutData>
+              <core:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}"/>
+            </Select>
+            <Select id="ZMEDMB_TOBACCO" items="{KeyValue>/ZMEDMB_TOBACCO}" change="onZMEDMB_TOBACCOChange"
+                    visible="{= ${NewHabit>/Antecedent/BcpidChild} === 'C00505694F1771ED6869F97211E1EDE59' ? true : false}" width="100%">
+              <layoutData>
+                <FlexItemData growFactor="1" styleClass="sapUiSmallMarginEnd"/>
+              </layoutData>
+              <core:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}"/>
+            </Select>
+            <Select id="ZMEDMB_FREQ_UNIT" items="{KeyValue>/ZMEDMB_FREQ_UNIT}" change="onZMEDMB_FREQ_UNITChange" width="100%">
+              <layoutData>
+                <FlexItemData growFactor="1" styleClass="sapUiSmallMarginEnd"/>
+              </layoutData>
+              <core:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}"/>
+            </Select>
+            <Select id="ZMEDMB_FREQ_COND" items="{KeyValue>/ZMEDMB_FREQ_COND}" change="onZMEDMB_FREQ_CONDChange" width="100%">
+              <layoutData>
+                <FlexItemData growFactor="1"/>
+              </layoutData>
+              <core:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}"/>
+            </Select>
+          </HBox>
+          <HBox alignItems="Center">
+            <Label text="{i18n>GrWeek}" class="sapUiSmallMarginEnd"/>
+            <Input value="{NewHabit>/GrWeek}" type="Number" width="100%">
+              <layoutData>
+                <FlexItemData styleClass="sapUiSmallMarginEnd"/>
+              </layoutData>
+            </Input>           
+
+            <Label text="{i18n>Comments}" class="sapUiSmallMarginEnd" visible="{= ${NewHabit>/Antecedent/BcpidChild} === 'C00505694F1771ED6869F97211E1E9E59' ? true : false}"/>
+              <TextArea value="{NewHabit>/Comments}" visible="{= ${NewHabit>/Antecedent/BcpidChild} === 'C00505694F1771ED6869F97211E1E9E59' ? true : false}" width="100%" liveChange="onLiveChangeMaxLength" maxLength="60" showExceededText="true" rows="1">
+                <layoutData>
+                  <FlexItemData growFactor="1"/>
+                </layoutData>
+              </TextArea>
+              <Label text="{i18n>Type}" class="sapUiSmallMarginEnd" visible="{= ${NewHabit>/Antecedent/BcpidChild} === 'C00505694F1771ED6869F97211E1F1E59' ? true : false}"/>
+              <TextArea value="{NewHabit>/OtherTypeText}" visible="{= ${NewHabit>/Antecedent/BcpidChild} === 'C00505694F1771ED6869F97211E1F1E59' ? true : false}"  width="100%" liveChange="onLiveChangeMaxLength" maxLength="20" showExceededText="true" rows="1"/>
+          </HBox>
+        </VBox>
+      </WizardStep>
+    </Wizard>
+    <buttons>
+      <Button type="Reject" text="{i18n>Cancel}" press="onCancelAddAllergiesAntecedentsDialog"/>
+      <Button type="Accept" text="{i18n>Save}" visible="{=!!${NewHabit>/Antecedent/NameChild}}" press="onSaveAddSocialHabitsDialog($event, false)"/>
+      <Button type="Accept" text="{i18n>SaveAndContinue}" visible="{=!!${NewHabit>/Antecedent/NameChild}}" press="onSaveAddSocialHabitsDialog($event, true)"/>
+        
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

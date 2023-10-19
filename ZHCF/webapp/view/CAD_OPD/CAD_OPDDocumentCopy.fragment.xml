@@ -1,0 +1,708 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:uxap="sap.uxap"
+>
+	<uxap:ObjectPageLayout
+		isChildPage="true"
+		useIconTabBar="true"
+		busy="true"
+		busyIndicatorDelay="0"
+	>
+		<uxap:headerTitle>
+			<uxap:ObjectPageDynamicHeaderTitle>
+				<uxap:expandedHeading>
+					<Title titleStyle="H3"/>
+				</uxap:expandedHeading>
+				<uxap:expandedContent>
+					<Text/>
+				</uxap:expandedContent>
+				<uxap:actions>
+					<Button
+						icon="sap-icon://create"
+						text="{i18n>NewDocument}"
+						press="createNewDocument('CAD_OPD')"
+						enabled="false"
+						visible="{=!${
+							parts: [{path: 'CAD_OPD>/Dokst'}, {value: 'X'}, {path: 'AllowedPMD>/results'}, {value: 'CAD_OPD'}],
+							formatter: '.formatter.isEditable'
+						}}"
+					/>
+					<Button
+						icon="sap-icon://create-form"
+						text="{i18n>NewVersion}"
+						press="createDocumentVersion('CAD_OPD')"
+						enabled="false"
+						visible="{=!${
+								path: 'CAD_OPD>/Dokst',
+								formatter: '.formatter.isEditable'
+							}}"
+					/>
+					<Button
+						icon="sap-icon://save"
+						text="{i18n>Save}"
+						press="save('CAD_OPD')"
+						enabled="false"
+						visible="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+					/>
+					<Button
+						icon="sap-icon://signature"
+						text="{i18n>SaveSend}"
+						press="saveSend('CAD_OPD')"
+						enabled="false"
+						visible="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+					/>
+					<Button
+						icon="sap-icon://print"
+						text="{i18n>Print}"
+						press="print('CAD_OPD')"
+						enabled="false"
+						visible="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isPrintable'
+						}"
+					/>
+				</uxap:actions>
+			</uxap:ObjectPageDynamicHeaderTitle>
+		</uxap:headerTitle>
+		<uxap:ObjectPageSection
+			title="{i18n>Antecedents}"
+			titleUppercase="false"
+		>
+			<uxap:ObjectPageSubSection showTitle="false">
+				<Panel headerText="{i18n>Consultation}">
+					<Label
+						text="{i18n>MOV_FMOTFT}"
+						tooltip="{i18n>MOV_FMOTFT}"
+					/>
+					<Input
+						value="{CAD_OPD>/content/MOV_FMOTFL/Value}"
+						editable="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+					/>
+				</Panel>
+				<Panel>
+					<List
+						items="{CAD_OPD>/RiskFactors}"
+						mode="{= ${
+								path: 'CAD_OPD>/Dokst',
+								formatter: '.formatter.isEditable'
+							}?'Delete':'None'}"
+						delete="onDeleteRiskFactorPressed($event, 'CAD_OPD')"
+					>
+						<headerToolbar>
+							<Toolbar>
+								<Title
+									text="{i18n>RiskFactors}"
+									titleStyle="H3"
+								/>
+								<ToolbarSpacer/>
+								<Button
+									icon="sap-icon://add"
+									type="Transparent"
+									text="{i18n>Import}"
+									tooltip="{i18n>Import}"
+									press="onImportDialogPressed('CAD_OPD.ImportRiskFactorDialog')"
+									enabled="{
+										path: 'CAD_OPD>/Dokst',
+										formatter: '.formatter.isEditable'
+									}"
+								/>
+							</Toolbar>
+						</headerToolbar>
+						<StandardListItem title="{CAD_OPD>PAT_FRFDSC}"/>
+					</List>
+				</Panel>
+				<Panel>
+					<HBox
+						width="100%"
+						alignItems="Center"
+					>
+						<Label
+							text="{i18n>PAT_FALLST}"
+							tooltip="{i18n>PAT_FALLST}"
+							class="sapUiTinyMarginEnd"
+						/>
+						<Input
+							value="{CAD_OPD>/content/PAT_FALLST/Value}"
+							editable="false"
+						>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</Input>
+					</HBox>
+					<Table
+						items="{CAD_OPD>/Allergies}"
+						mode="{= ${
+								path: 'CAD_OPD>/Dokst',
+								formatter: '.formatter.isEditable'
+							}?'Delete':'None'}"
+						delete="onDeleteAllergyPressed($event, 'CAD_OPD')"
+					>
+						<headerToolbar>
+							<Toolbar>
+								<Title
+									text="{i18n>Allergies}"
+									titleStyle="H3"
+								/>
+								<ToolbarSpacer/>
+								<Button
+									icon="sap-icon://add"
+									type="Transparent"
+									text="{i18n>Import}"
+									tooltip="{i18n>Import}"
+									press="onImportDialogPressed('CAD_OPD.ImportAllergyDialog')"
+									enabled="{
+										path: 'CAD_OPD>/Dokst',
+										formatter: '.formatter.isEditable'
+									}"
+								/>
+							</Toolbar>
+						</headerToolbar>
+						<columns>
+							<Column>
+								<Text text="{i18n>PAT_FALLGR}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>PAT_FALLDS}"/>
+							</Column>
+						</columns>
+						<ColumnListItem>
+							<cells>
+								<Text text="{CAD_OPD>PAT_FALLGR}"/>
+								<Text text="{CAD_OPD>PAT_FALLDS}"/>
+							</cells>
+						</ColumnListItem>
+					</Table>
+				</Panel>
+				<Panel headerText="{i18n>Antecedents}">
+					<HBox
+						width="100%"
+						alignItems="Center"
+					>
+						<Label
+							text="{i18n>PAT_FSUNK}"
+							tooltip="{i18n>PAT_FSUNK}"
+							class="sapUiTinyMarginEnd"
+						/>
+						<Input
+							value="{CAD_OPD>/content/PAT_FSUNK/Value}"
+							editable="false"
+						>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</Input>
+					</HBox>
+					<Table
+						items="{CAD_OPD>/SurgicalAntecedents}"
+						mode="{= ${
+								path: 'CAD_OPD>/Dokst',
+								formatter: '.formatter.isEditable'
+							}?'Delete':'None'}"
+						delete="onDeleteSurgicalAntecedentPressed($event, 'CAD_OPD')"
+					>
+						<headerToolbar>
+							<Toolbar>
+								<Title
+									text="{i18n>SurgicalAntecedents}"
+									titleStyle="H3"
+								/>
+								<ToolbarSpacer/>
+								<Button
+									icon="sap-icon://add"
+									type="Transparent"
+									text="{i18n>Import}"
+									tooltip="{i18n>Import}"
+									press="onImportDialogPressed('CAD_OPD.ImportSurgicalAntecedentDialog')"
+									enabled="{
+										path: 'CAD_OPD>/Dokst',
+										formatter: '.formatter.isEditable'
+									}"
+								/>
+							</Toolbar>
+						</headerToolbar>
+						<columns>
+							<Column>
+								<Text text="{i18n>PAT_FSURNA}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>PAT_FSURDT}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>PAT_FSURRM}"/>
+							</Column>
+						</columns>
+						<ColumnListItem>
+							<cells>
+								<Text text="{CAD_OPD>PAT_FSURNA}"/>
+								<Text text="{
+									path: 'CAD_OPD>PAT_FSURDT',
+									type: 'sap.ui.model.type.Date'
+								}"/>
+								<Text text="{CAD_OPD>PAT_FSURRM}"/>
+							</cells>
+						</ColumnListItem>
+					</Table>
+					<HBox
+						width="100%"
+						alignItems="Center"
+					>
+						<Label
+							text="{i18n>PAT_FMHINK}"
+							tooltip="{i18n>PAT_FMHINK}"
+							class="sapUiTinyMarginEnd"
+						/>
+						<Input
+							value="{CAD_OPD>/content/PAT_FMHINK/Value}"
+							editable="false"
+						>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</Input>
+					</HBox>
+					<Table
+						items="{CAD_OPD>/MedicalAntecedents}"
+						mode="{= ${
+								path: 'CAD_OPD>/Dokst',
+								formatter: '.formatter.isEditable'
+							}?'Delete':'None'}"
+						delete="onDeleteMedicalAntecedentPressed($event, 'CAD_OPD')"
+					>
+						<headerToolbar>
+							<Toolbar>
+								<Title
+									text="{i18n>MedicalAntecedents}"
+									titleStyle="H3"
+								/>
+								<ToolbarSpacer/>
+								<Button
+									icon="sap-icon://add"
+									type="Transparent"
+									text="{i18n>Import}"
+									tooltip="{i18n>Import}"
+									press="onImportDialogPressed('CAD_OPD.ImportMedicalAntecedentDialog')"
+									enabled="{
+										path: 'CAD_OPD>/Dokst',
+										formatter: '.formatter.isEditable'
+									}"
+								/>
+							</Toolbar>
+						</headerToolbar>
+						<columns>
+							<Column>
+								<Text text="{i18n>PAT_FDISNA}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>PAT_FDISDA}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>PAT_FDISTR}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>PAT_FDISRM}"/>
+							</Column>
+						</columns>
+						<ColumnListItem>
+							<cells>
+								<Text text="{CAD_OPD>PAT_FDISNA}"/>
+								<Text text="{
+									path: 'CAD_OPD>PAT_FDISDA',
+									type: 'sap.ui.model.type.Date'
+								}"/>
+								<Text text="{CAD_OPD>PAT_FDISTR}"/>
+								<Text text="{CAD_OPD>PAT_FDISRM}"/>
+							</cells>
+						</ColumnListItem>
+					</Table>
+					<HBox
+						width="100%"
+						alignItems="Center"
+					>
+						<Label
+							text="{i18n>PAT_FFAMNK}"
+							tooltip="{i18n>PAT_FFAMNK}"
+							class="sapUiTinyMarginEnd"
+						/>
+						<Input
+							value="{CAD_OPD>/content/PAT_FFAMNK/Value}"
+							editable="false"
+						>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+						</Input>
+					</HBox>
+					<Table
+						items="{CAD_OPD>/FamilyAntecedents}"
+						mode="{= ${
+								path: 'CAD_OPD>/Dokst',
+								formatter: '.formatter.isEditable'
+							}?'Delete':'None'}"
+						delete="onDeleteFamilyAntecedentPressed($event, 'CAD_OPD')"
+					>
+						<headerToolbar>
+							<Toolbar>
+								<Title
+									text="{i18n>FamilyAntecedents}"
+									titleStyle="H3"
+								/>
+								<ToolbarSpacer/>
+								<Button
+									icon="sap-icon://add"
+									type="Transparent"
+									text="{i18n>Import}"
+									tooltip="{i18n>Import}"
+									press="onImportDialogPressed('CAD_OPD.ImportFamilyAntecedentDialog')"
+									enabled="{
+										path: 'CAD_OPD>/Dokst',
+										formatter: '.formatter.isEditable'
+									}"
+								/>
+							</Toolbar>
+						</headerToolbar>
+						<columns>
+							<Column>
+								<Text text="{i18n>PAT_FFHNAM}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>PAT_FRFAT}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>PAT_FRMOM}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>PAT_FRBRO}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>PAT_FRSIS}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>PAT_FRPAGP}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>PAT_FRMAGP}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>PAT_FRSON}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>PAT_FFHRMK}"/>
+							</Column>
+						</columns>
+						<ColumnListItem>
+							<cells>
+								<Text text="{CAD_OPD>PAT_FFHNAM}"/>
+								<core:Icon
+									src="sap-icon://accept"
+									visible="{CAD_OPD>PAT_FRFAT}"
+								/>
+								<core:Icon
+									src="sap-icon://accept"
+									visible="{CAD_OPD>PAT_FRMOM}"
+								/>
+								<core:Icon
+									src="sap-icon://accept"
+									visible="{CAD_OPD>PAT_FRBRO}"
+								/>
+								<core:Icon
+									src="sap-icon://accept"
+									visible="{CAD_OPD>PAT_FRSIS}"
+								/>
+								<core:Icon
+									src="sap-icon://accept"
+									visible="{CAD_OPD>PAT_FRPAGP}"
+								/>
+								<core:Icon
+									src="sap-icon://accept"
+									visible="{CAD_OPD>PAT_FRMAGP}"
+								/>
+								<core:Icon
+									src="sap-icon://accept"
+									visible="{CAD_OPD>PAT_FRSON}"
+								/>
+								<Text text="{CAD_OPD>PAT_FFHRMK}"/>
+							</cells>
+						</ColumnListItem>
+					</Table>
+				</Panel>
+				<Panel headerText="{i18n>PAT_GOTHI}">
+					<TextArea
+						growing="true"
+						growingMaxLines="5"
+						rows="3"
+						value="{CAD_OPD>/content/PAT_GOTHI/Value}"
+						editable="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+						width="100%"
+					/>
+				</Panel>
+				<Panel headerText="{i18n>X00_GOTHTR}">
+					<TextArea
+						growing="true"
+						growingMaxLines="5"
+						rows="3"
+						value="{CAD_OPD>/content/X00_GOTHTR/Value}"
+						editable="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+						width="100%"
+					/>
+				</Panel>
+			</uxap:ObjectPageSubSection>
+		</uxap:ObjectPageSection>
+		<uxap:ObjectPageSection
+			title="{i18n>PhysicalExploration}"
+			titleUppercase="false"
+		>
+			<uxap:ObjectPageSubSection showTitle="false">
+				<Panel headerText="{i18n>PAT_FPILL}">
+					<TextArea
+						growing="true"
+						growingMaxLines="5"
+						rows="3"
+						value="{CAD_OPD>/content/PAT_FPILL/Value}"
+						editable="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+						width="100%"
+					/>
+				</Panel>
+				<Panel headerText="{i18n>CLI_FPEFUR}">
+					<TextArea
+						growing="true"
+						growingMaxLines="5"
+						rows="3"
+						value="{CAD_OPD>/content/CLI_FPEFUR/Value}"
+						editable="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+						width="100%"
+					/>
+				</Panel>
+				<Panel>
+					<Table
+						items="{CAD_OPD>/VitalSignsExamTable}"
+						mode="{= ${
+								path: 'CAD_OPD>/Dokst',
+								formatter: '.formatter.isEditable'
+							}?'Delete':'None'}"
+						delete="onDeleteVitalSignsExamTablePressed($event, 'CAD_OPD')"
+					>
+						<headerToolbar>
+							<Toolbar>
+								<Title
+									text="{i18n>VitalSignsTitle}"
+									titleStyle="H3"
+								/>
+								<ToolbarSpacer/>
+								<Button
+									icon="sap-icon://add"
+									type="Transparent"
+									text="{i18n>Import}"
+									tooltip="{i18n>Import}"
+									press="onImportDialogPressed('CAD_OPD.ImportVitalSignDialog')"
+									enabled="{
+										path: 'CAD_OPD>/Dokst',
+										formatter: '.formatter.isEditable'
+									}"
+								/>
+							</Toolbar>
+						</headerToolbar>
+						<columns>
+							<Column>
+								<Text text="{i18n>CLI_FVSDSC}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>CLI_FVSVAL}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>CLI_FVSNRA}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>CLI_FVSTIM}"/>
+							</Column>
+						</columns>
+						<ColumnListItem>
+							<cells>
+								<Text text="{CAD_OPD>CLI_FVSDSC}"/>
+								<Text text="{CAD_OPD>CLI_FVSVAL}"/>
+								<Text text="{CAD_OPD>CLI_FVSNRA}"/>
+								<Text text="{CAD_OPD>CLI_FVSTIM}"/>
+							</cells>
+						</ColumnListItem>
+					</Table>
+				</Panel>
+			</uxap:ObjectPageSubSection>
+		</uxap:ObjectPageSection>
+		<uxap:ObjectPageSection
+			title="{i18n>EvoSupplementaryTests}"
+			titleUppercase="false"
+		>
+			<uxap:ObjectPageSubSection showTitle="false">
+				<Panel headerText="{i18n>ORD_FASST}">
+					<TextArea
+						growing="true"
+						growingMaxLines="5"
+						rows="3"
+						value="{CAD_OPD>/content/ORD_FASST/Value}"
+						editable="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+						width="100%"
+					/>
+				</Panel>
+			</uxap:ObjectPageSubSection>
+		</uxap:ObjectPageSection>
+		<uxap:ObjectPageSection
+			title="{i18n>DiagnosesProcedures}"
+			titleUppercase="false"
+		>
+			<uxap:ObjectPageSubSection showTitle="false">
+				<Panel headerText="{i18n>Diagnoses}">
+					<List items="{CAD_OPD>/Diagnoses}">
+						<StandardListItem title="{CAD_OPD>PAT_FDIAD}"/>
+					</List>
+				</Panel>
+				<Panel headerText="{i18n>Procedures}">
+					<List items="{CAD_OPD>/content/PAT_FPROD}">
+						<StandardListItem title="{CAD_OPD>Value}"/>
+					</List>
+				</Panel>
+				<Panel headerText="{i18n>PAT_GCLIN}">
+					<TextArea
+						growing="true"
+						growingMaxLines="5"
+						rows="3"
+						value="{CAD_OPD>/content/PAT_GCLIN/Value}"
+						editable="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+						width="100%"
+					/>
+				</Panel>
+			</uxap:ObjectPageSubSection>
+		</uxap:ObjectPageSection>
+		<uxap:ObjectPageSection
+			title="{i18n>Treatment}"
+			titleUppercase="false"
+		>
+			<uxap:ObjectPageSubSection showTitle="false">
+				<Panel>
+					<List
+						headerText="{i18n>Medication}"
+						items="{CAD_OPD>/content/MED_FORDD}"
+					>
+						<StandardListItem title="{CAD_OPD>Value}"/>
+					</List>
+				</Panel>
+				<Panel headerText="{i18n>X00_GOTHTR}">
+					<TextArea
+						growing="true"
+						growingMaxLines="5"
+						rows="3"
+						value="{CAD_OPD>/content/X02_GOTHTR/Value}"
+						editable="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+						width="100%"
+					/>
+				</Panel>
+			</uxap:ObjectPageSubSection>
+		</uxap:ObjectPageSection>
+		<uxap:ObjectPageSection
+			title="{i18n>Discharge}"
+			titleUppercase="false"
+		>
+			<uxap:ObjectPageSubSection showTitle="false">
+				<Panel headerText="{i18n>PMD_FGENT}">
+					<TextArea
+						growing="true"
+						growingMaxLines="5"
+						rows="3"
+						value="{CAD_OPD>/content/PMD_FGENT/Value}"
+						editable="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+						width="100%"
+					/>
+				</Panel>
+				<Panel headerText="{i18n>PMD_ALTMED}">
+					<TextArea
+						growing="true"
+						growingMaxLines="5"
+						rows="3"
+						value="{CAD_OPD>/content/PMD_ALTMED/Value}"
+						editable="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+						width="100%"
+					/>
+				</Panel>
+				<Panel headerText="{i18n>PMD_FFUPT}">
+					<TextArea
+						growing="true"
+						growingMaxLines="5"
+						rows="3"
+						value="{CAD_OPD>/content/PMD_FFUPT/Value}"
+						editable="{
+							path: 'CAD_OPD>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+						width="100%"
+					/>
+				</Panel>
+				<Panel>
+					<Table items="{CAD_OPD>/Signs}">
+						<headerToolbar>
+							<Toolbar>
+								<Title
+									text="{i18n>Sign}"
+									titleStyle="H3"
+								/>
+							</Toolbar>
+						</headerToolbar>
+						<columns>
+							<Column>
+								<Text text="{i18n>PMD_FERNUM}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>PMD_FERNAM}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>PMD_FERMLN}"/>
+							</Column>
+						</columns>
+						<ColumnListItem>
+							<cells>
+								<Text text="{CAD_OPD>PMD_FERNUM}"/>
+								<Text text="{CAD_OPD>PMD_FERNAM}"/>
+								<Text text="{CAD_OPD>PMD_FERMLN}"/>
+							</cells>
+						</ColumnListItem>
+					</Table>
+				</Panel>
+			</uxap:ObjectPageSubSection>
+		</uxap:ObjectPageSection>
+	</uxap:ObjectPageLayout>
+</core:FragmentDefinition>

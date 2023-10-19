@@ -1,0 +1,119 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+  <Dialog id="addAllergiesDialog" contentWidth="100%" afterClose="onCancelAddAllergiesAntecedentsDialog">
+    <customHeader>
+      <Toolbar>
+        <Title text="{i18n>AddAllergiesDialogTitle}" titleStyle="H3"/>
+      </Toolbar>
+    </customHeader>    
+    
+    <Wizard showNextButton="false" renderMode="Page">
+      <WizardStep title="Seleccionar alérgeno">
+        <HBox alignItems="Center">
+          <SearchField
+            id="AllergiesSearchField"
+            enableSuggestions="true"
+            enabled="true"        
+            showRefreshButton="false"
+            class="sapUiTinyMarginEnd"
+            showSearchButton="true"
+            width="300px"
+            liveChange=".onTypeAllergies"
+            search=".onSearchAllergies"  
+            >                
+          </SearchField>
+          <ToolbarSpacer
+              width="30px"
+          >
+              
+          </ToolbarSpacer>
+          <Label text="{i18n>NoAllergy}" class="sapUiTinyMarginEnd"/>
+          <Switch customTextOff=" " customTextOn=" " state="{Allergy>/NoAllergy}"/>
+        </HBox>
+        <Tree items="{path:'AllergyFiltered>/results', parameters: {arrayNames:['children']}}" mode="SingleSelectMaster" select="onAllergySelect"
+              busy="{AllergyFiltered>/loading}" visible="{=!${Allergy>/NoAllergy}}">
+          <StandardTreeItem title="{AllergyFiltered>Bcpname}" visible="{parts: ['AntAllergycedent>children','AllergyFiltered>IsSelectable'], formatter: '.formatter.antecedentVisible'}"/>
+        </Tree>
+      </WizardStep>
+      <WizardStep title="Documentar alérgeno">
+        <HBox width="100%" justifyContent="SpaceAround">
+          <VBox width="50%" class="sapUiMediumMarginBeginEnd">
+            <Label text="{i18n>Allergen}"/>
+            <Input value="{NewAllergy>/Allergy/Bcpname}" editable="{=!${NewAllergy>/Allergy/Bchid}}"/>
+          </VBox>
+          <VBox width="50%" class="sapUiMediumMarginBeginEnd">
+            <Label text="{i18n>Certainty}" labelFor="N2AD_CER"/>
+            <Select id="N2AD_CER" items="{KeyValue>/N2AD_CER}" change="onN2AD_CERChange" width="100%">
+              <core:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}"/>
+            </Select>
+          </VBox>
+        </HBox>
+        <VBox width="100%">
+          <Label text="{i18n>Observations}" labelFor="observations" class="sapUiMediumMarginBeginEnd"/> 
+          <TextArea 
+            id="observations" 
+            width="100%" 
+            growing="true" 
+            growingMaxLines="10" 
+            rows="5" 
+            value="{NewAllergy>/Adcomment}" 
+            valueLiveUpdate="true"
+            maxLength="50"		
+            liveChange="onLiveChangeMaxLength"	
+            showExceededText="true"
+            class="sapUiMediumPaddingBeginEnd"/>
+        </VBox>
+        <HBox width="100%" justifyContent="SpaceAround">
+          <VBox width="50%" class="sapUiMediumMarginBeginEnd">
+            <Label text="{i18n>Evaluation}" labelFor="N2AD_EVALUATION"/>
+            <Select id="N2AD_EVALUATION" items="{KeyValue>/N2AD_EVALUATION}" change="onN2AD_EVALUATIONChange" width="100%">
+              <core:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}"/>
+            </Select>
+          </VBox>
+          <VBox width="50%" class="sapUiMediumMarginBeginEnd">
+            <Label text="{i18n>Type}" labelFor="N2AD_TYP"/>
+            <Select id="N2AD_TYP" items="{KeyValue>/N2AD_TYP}" change="onN2AD_TYPChange" width="100%">
+              <core:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}"/>
+            </Select>
+          </VBox>
+        </HBox>
+        <Table items="{path: 'NewAllergy>/Reactions', templateShareable: true}" mode="MultiSelect">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="{parts: ['i18n>Reactions', 'NewAllergy>/Reactions'], formatter: '.formatter.getTitleWithCount'}"/>
+              <ToolbarSpacer/>
+              <Button icon="sap-icon://add" press="onAddReaction"/>
+              <Button type="Reject" icon="sap-icon://delete" press="onRemoveSelectedSamples"/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column>
+              <Text text="{i18n>ReactionType}"/>
+            </Column>
+            <Column>
+              <Text text="{i18n>Gravity}"/>
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+                <Select id="reactionType" items="{path: 'KeyValue>/N2AD_REA', templateShareable: true}" change="onN2AD_REAChange" selectedKey="{NewAllergy>Rea}" width="100%">
+                  <core:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}"/>
+                </Select>
+                <Select id="gravity" items="{path: 'KeyValue>/N2AD_SOA', templateShareable: true}" change="onN2AD_SOAChange" selectedKey="{NewAllergy>Soa}" width="100%">
+                  <core:Item key="{KeyValue>KeyValue}" text="{KeyValue>KeyText}"/>
+                </Select>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </WizardStep>
+    </Wizard>
+    <buttons>
+      <Button type="Reject" text="{i18n>Cancel}" press="onCancelAddAllergiesAntecedentsDialog"/>
+      <Button type="Accept" text="{i18n>Save}" press="onSaveAddAllergiesDialog($event, false)"
+              visible="{parts: [{path: 'Allergy>/NoAllergy'}, {path: 'NewAllergy>/Allergy'}], formatter: '.formatter.canSaveAllergy'}"/>
+      <Button type="Accept" text="{i18n>SaveAndContinue}" visible="{parts: [{path: 'Allergy>/NoAllergy'}, {path: 'NewAllergy>/Allergy'}], formatter: '.formatter.canSaveAllergy'}" press="onSaveAddAllergiesDialog($event, true)"/>
+
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

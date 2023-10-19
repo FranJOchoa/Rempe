@@ -1,0 +1,49 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog title="{i18n>ImportFamilyAntecedentDialogTitle}" contentWidth="33%" contentHeight="50%" busyIndicatorDelay="0">
+    <Table mode="MultiSelect" items="{PatientFamilyHistory>/results}">
+      <columns>
+        <Column>
+          <Text text="{i18n>PAT_FFHNAM}"/>
+        </Column>
+        <Column hAlign="Center">
+          <Text text="{i18n>PAT_FRFAT}"/>
+        </Column>
+        <Column hAlign="Center">
+          <Text text="{i18n>PAT_FRMOM}"/>
+        </Column>
+        <Column hAlign="Center">
+          <Text text="{i18n>PAT_FRBRO}"/>
+        </Column>
+        <Column hAlign="Center">
+          <Text text="{i18n>PAT_FRSIS}"/>
+        </Column>
+        <Column hAlign="Center">
+          <Text text="{i18n>PAT_FRPAGP}"/>
+        </Column>
+        <Column hAlign="Center">
+          <Text text="{i18n>PAT_FRMAGP}"/>
+        </Column>
+        <Column hAlign="Center">
+          <Text text="{i18n>PAT_FRSON}"/>
+        </Column>
+      </columns>
+      <ColumnListItem
+        selected="{parts: [{value: 'PAT_FFHID'}, 'PatientFamilyHistory>FamilyHistid', 'CAD_AE>/FamilyAntecedents'], formatter: '.formatter.dialogSelectedItem'}">
+        <cells>
+          <Text text="{PatientFamilyHistory>ZMFH/NameChild}"/>
+          <core:Icon src="sap-icon://accept" visible="{PatientFamilyHistory>Father}"/>
+          <core:Icon src="sap-icon://accept" visible="{PatientFamilyHistory>Mother}"/>
+          <core:Icon src="sap-icon://accept" visible="{PatientFamilyHistory>Brother}"/>
+          <core:Icon src="sap-icon://accept" visible="{PatientFamilyHistory>Sister}"/>
+          <core:Icon src="sap-icon://accept" visible="{PatientFamilyHistory>PaternalGrandparents}"/>
+          <core:Icon src="sap-icon://accept" visible="{PatientFamilyHistory>MaternalGrandparents}"/>
+          <core:Icon src="sap-icon://accept" visible="{PatientFamilyHistory>Son}"/>
+        </cells>
+      </ColumnListItem>
+    </Table>
+    <buttons>
+      <Button type="Reject" text="{i18n>Cancel}" press="onCancelImportDialog"/>
+      <Button type="Accept" text="{i18n>Save}" press="onSaveImportFamilyAntecedentDialog($event, 'CAD_AE')"/>
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

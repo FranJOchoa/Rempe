@@ -1,0 +1,31 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog 
+    title="{i18n>Diag_Judment}"
+    contentWidth="33%" 
+    contentHeight="50%" 
+    busyIndicatorDelay="0"
+    afterClose="onCancelDiagJudgment">
+    <SearchField
+    id="diag_Judgment_Search"
+    enableSuggestions="true"
+    enabled="true"        
+    showRefreshButton="false"
+    class="sapUiTinyMarginEnd"
+    showSearchButton="true"
+    liveChange="onTypeImportDiag_Judgment"
+    search="onSearchImportDiag_Judgment">                
+  </SearchField>
+    <List 
+      id="DiagList" 
+      mode="SingleSelectMaster" 
+      items="{GetCaseDiagnosticsFiltered>/results}" 
+      itemPress="onSaveImportDiagJudgment($event, 'CAD_AE')">
+
+      <StandardListItem title="{GetCaseDiagnosticsFiltered>Description}" type="Active"/>
+    </List>
+    <buttons>
+      <Button type="Reject" text="{i18n>Cancel}" press="onCancelDiagJudgment($event)"/>
+      <!--<Button type="Accept" text="{i18n>Save}" press="onSaveImportDiagJudgment($event, 'CAD_AE')"/>-->
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

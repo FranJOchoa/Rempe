@@ -1,0 +1,125 @@
+<core:FragmentDefinition
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m"
+>
+	<Dialog
+		id="addMedicalAntDialog"
+		contentWidth="50%"
+		afterClose="ClearMedicalAntecedents"
+	>
+		<customHeader>
+			<Toolbar>
+				<Title
+					text="{i18n>AddMedicalAntecedentsDialogTitle}"
+					titleStyle="H3"
+				/>
+			</Toolbar>
+		</customHeader>
+		<Wizard
+			showNextButton="false"
+			renderMode="Page"
+		>
+			<WizardStep title="{i18n>AntecedentSelection}">
+				<SearchField
+					id="SearchMedicalAntecedents"
+					enableSuggestions="false"
+					enabled="true"
+					showRefreshButton="false"
+					showSearchButton="true"
+					liveChange=".onTypeMedicalAntecedents"
+					search=".onSearchMedicalAntecedents"
+					visible="true"
+				/>
+				<Tree
+					items="{
+						path: 'AntecedentFiltered>/ZPMH',
+						parameters: {
+							arrayNames: ['children']
+						}
+					}"
+					mode="SingleSelectMaster"
+					select="onMedicalAntecedentsSelect"
+				>
+					<StandardTreeItem
+						title="{AntecedentFiltered>NameChild}"
+						visible="{
+							parts: ['AntecedentFiltered>children', 'AntecedentFiltered>IsSelectable'],
+							formatter: '.formatter.antecedentVisible'
+						}"
+					/>
+				</Tree>
+			</WizardStep>
+			<WizardStep title="{i18n>AntecedentDocumentation}">
+				<HBox
+					width="100%"
+					justifyContent="SpaceBetween"
+				>
+					<VBox
+						width="100%"
+						class="sapUiMediumPaddingBeginEnd"
+					>
+						<layoutData>
+							<FlexItemData growFactor="1"/>
+						</layoutData>
+						<Label text="{i18n>Disease}"/>
+						<Input
+							value="{NewMedicalHistory>/Antecedent/NameChild}"
+							editable="false"
+						/>
+					</VBox>
+					<VBox
+						width="100%"
+						class="sapUiMediumPaddingBeginEnd"
+					>
+						<layoutData>
+							<FlexItemData growFactor="1"/>
+						</layoutData>
+						<Label text="{i18n>Date}"/>
+						<DatePicker
+							id="dateMedicalAntecedents"
+							change="onMedicalAntecedentsDateChange"
+              displayFormat="dd.MM.yyyy"
+						/>
+					</VBox>
+				</HBox>
+				<VBox
+					width="100%"
+					class="sapUiMediumPaddingBeginEnd"
+				>
+					<Label text="{i18n>Medication}"/>
+					<TextArea value="{NewMedicalHistory>/Medication}" liveChange="onLiveChangeMaxLength" rows="1" width="100%"  maxLength="80" showExceededText="true"/>
+					<Label text="{i18n>Comments}"/>
+					<TextArea value="{NewMedicalHistory>/Comments}" liveChange="onLiveChangeMaxLength" rows="1" width="100%" maxLength="80" showExceededText="true"/>
+					<Label text="{i18n>Observations}"/>
+					<TextArea
+						value="{NewMedicalHistory>/Observations}"
+						width="100%"
+						maxLength="80"		
+						liveChange="onLiveChangeMaxLength"	
+						showExceededText="true"
+						
+					/>
+				</VBox>
+			</WizardStep>
+		</Wizard>
+		<buttons>
+			<Button
+				type="Reject"
+				text="{i18n>Cancel}"
+				press="onCancelAddAllergiesAntecedentsDialog"
+			/>
+			<Button
+				type="Accept"
+				text="{i18n>Save}"
+				visible="{=!!${NewMedicalHistory>/Antecedent/NameChild}}"
+				press="onSaveAddMedicalAntecedentsDialog($event, false)"
+			/>
+			<Button
+				type="Accept"
+				text="{i18n>SaveAndContinue}"
+				visible="{=!!${NewMedicalHistory>/Antecedent/NameChild}}"
+				press="onSaveAddMedicalAntecedentsDialog($event, true)"
+			/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,46 @@
+<c:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:c="sap.ui.core"
+>
+  <Dialog
+    title="{i18n>AddSurgicalAntecedentsDialogTitle}"
+    id="editSurgicalAntecedents"
+    contentWidth="40%"
+    contentHeight="260px"
+    class="sapUiContentPadding"
+  >
+    <customHeader>
+      <Toolbar>
+        <Title text="{i18n>AddSurgicalAntecedentsDialogTitle}" titleStyle="H3" />
+      </Toolbar>
+    </customHeader>
+    <HBox width="100%" justifyContent="SpaceBetween">
+      <VBox width="100%" class="sapUiMediumPaddingBeginEnd">
+        <layoutData>
+          <FlexItemData growFactor="1" />
+        </layoutData>
+        <Label text="{i18n>Surgery}" />
+        <Input value="{NewSurgeryHistory>/Antecedent/NameChild}" editable="false" />
+      </VBox>
+      <VBox width="100%" class="sapUiMediumPaddingBeginEnd">
+        <layoutData>
+          <FlexItemData growFactor="1" />
+        </layoutData>
+        <Label text="{i18n>Date}" />
+        <DatePicker id="Edit_dateSurginalAntecedents" dateValue="{NewSurgeryHistory>/DateSurg}" displayFormat="dd.MM.yyyy" change="onSurgicalAntecedentsDateChange" />
+      </VBox>
+    </HBox>
+    <VBox width="100%" class="sapUiMediumPaddingBeginEnd">
+      <Label text="{i18n>Comments}" />
+      <TextArea value="{NewSurgeryHistory>/Comments}" liveChange="onLiveChangeMaxLength" rows="1" width="100%"  maxLength="80" showExceededText="true"/>
+      <Label text="{i18n>Observations}" />
+      <TextArea value="{NewSurgeryHistory>/Observations}" width="100%" maxLength="80" liveChange="onLiveChangeMaxLength"
+        showExceededText="true" />
+    </VBox>
+    <buttons>
+      <Button text="{i18n>Cancel}" press="closeUpdateDialog" />
+      <Button type="Reject" text="{i18n>Eliminate}" press="onDeleteSurgicalAntecedent"/>
+      <Button type="Accept" text="{i18n>Save}" press="onEditSurgicalAntecedents"/>          
+    </buttons>
+  </Dialog>
+</c:FragmentDefinition>

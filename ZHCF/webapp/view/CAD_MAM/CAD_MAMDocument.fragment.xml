@@ -1,0 +1,1162 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+	xmlns:uxap="sap.uxap"
+>
+	<uxap:ObjectPageLayout
+		isChildPage="true"
+		useIconTabBar="true"
+		busy="true"
+		busyIndicatorDelay="0"
+	>
+		<uxap:headerTitle>
+			<uxap:ObjectPageDynamicHeaderTitle>
+				<uxap:expandedHeading>
+					<Title titleStyle="H3"/>
+				</uxap:expandedHeading>
+				<uxap:expandedContent>
+					<Text/>
+				</uxap:expandedContent>
+				<uxap:actions>
+					<Button
+						icon="sap-icon://cause"
+						text="{i18n>BringData}"
+						press="bringDocument($event, 'CAD_MAM')"
+						enabled="false"
+						visible="{= ${CAD_MAM>/Dokst} === '' }"
+					/>
+					<Button
+						icon="sap-icon://create"
+						text="{i18n>NewDocument}"
+						press="createNewDocument('CAD_MAM')"
+						enabled="false"					
+						visible="{=!${
+								parts: [{path: 'CAD_MAM>/Dokst'}, {value: 'X'}, {path: 'AllowedPMD>/results'}, {value: 'CAD_MAM'}],
+								formatter: '.formatter.isEditable'
+							}}"	
+					/>
+					<Button
+						icon="sap-icon://create-form"
+						text="{i18n>NewVersion}"
+						press="createDocumentVersion('CAD_MAM')"
+						enabled="false"
+						visible="{=!${
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}}"
+					/>
+					<Button
+						icon="sap-icon://save"
+						text="{i18n>Save}"
+						press="save('CAD_MAM')"
+						enabled="false"
+						visible="{
+							path: 'CAD_MAM>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+					/>
+					<Button
+						icon="sap-icon://signature"
+						text="{i18n>SaveSend}"
+						press="saveSend('CAD_MAM')"
+						enabled="false"
+						visible="{
+							path: 'CAD_MAM>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+					/>
+					<Button
+						icon="sap-icon://print"
+						text="{i18n>Print}"
+						press="print('CAD_MAM')"
+						enabled="false"
+						visible="{
+							path: 'CAD_MAM>/Dokst',
+							formatter: '.formatter.isPrintable'
+						}"
+					/>
+				</uxap:actions>
+			</uxap:ObjectPageDynamicHeaderTitle>
+		</uxap:headerTitle>
+		<uxap:ObjectPageSection
+			title="{i18n>ScanReview}"
+			titleUppercase="false"
+			id="headerOfCAD_MAM"
+		>
+			<uxap:ObjectPageSubSection showTitle="false">
+				<Panel>
+					<CheckBox
+						selected="{=${CAD_MAM>/content/SEND_INF_W/Value}==='X'}"
+						text="{i18n>CADMAM_SEND_INF_W}"
+						select="onSelect($event, 'CAD_MAM','SEND_INF_W')"
+						editable="{
+							path: 'CAD_MAM>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+						class="sapUiTinyMarginBegin"
+					/>
+					<HBox
+						justifyContent="SpaceBetween"
+						width="100%"
+					>
+						<VBox
+							width="5rem"
+							class="sapUiSmallMarginEnd"
+						>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+							<Label
+								text="{i18n>CADMAM_MOTIVO_MAM}"
+								tooltip="{i18n>CADMAM_MOTIVO_MAM}"
+							/>
+							<Select
+								items="{KeyValue>/MOTIVO_MAM}"
+								selectedKey="{CAD_MAM>/content/MOTIVO_MAM/Value}"
+								enabled="{
+									path: 'CAD_MAM>/Dokst',
+									formatter: '.formatter.isEditable'
+								}"
+								width="100%"
+							>
+								<c:Item
+									key="{KeyValue>KeyValue}"
+									text="{KeyValue>KeyText}"
+								/>
+							</Select>
+							<Label
+								text="{i18n>CADMAM_FUR_MAM}"
+								tooltip="{i18n>CADMAM_FUR_MAM}"
+							/>
+							<DatePicker
+								displayFormat="dd.MM.yyyy"
+								value="{CAD_MAM>/content/FUR_MAM/Value}"
+								valueFormat="dd.MM.yyyy"
+								editable="{
+									path: 'CAD_MAM>/Dokst',
+									formatter: '.formatter.isEditable'
+								}"
+							/>
+							<Label
+								text="{i18n>CADMAM_MEN_GIN}"
+								tooltip="{i18n>CADMAM_MEN_GIN}"
+							/>
+							<Input
+								value="{CAD_MAM>/content/MEN_GIN/Value}"
+								editable="{
+									path: 'CAD_MAM>/Dokst',
+									formatter: '.formatter.isEditable'
+								}"
+							/>
+						</VBox>
+						<VBox>
+							<layoutData>
+								<FlexItemData growFactor="3"/>
+							</layoutData>
+							<Label
+								text="{i18n>Detail}"
+								tooltip="{i18n>Detail}"
+							/>
+							<TextArea
+								value="{CAD_MAM>/content/MOTIV2_MAM/Value}"
+								rows="6"
+								width="100%"
+								editable="{
+									path: 'CAD_MAM>/Dokst',
+									formatter: '.formatter.isEditable'
+								}"
+							/>
+						</VBox>
+					</HBox>
+				</Panel>
+				<Panel>
+					<CheckBox
+						selected="{=${CAD_MAM>/content/EXPLO_MAMX/Value}==='X'}"
+						text="{i18n>CADMAM_EXPLO_MAMX}"
+						select="onSelect($event, 'CAD_MAM','EXPLO_MAMX')"
+						editable="{
+							path: 'CAD_MAM>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+					/>
+					<HBox width="100%">
+						<VBox class="sapUiSmallMarginEnd">
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+							<Label
+								text="{i18n>MAMA_DER}"
+								tooltip="{i18n>MAMA_DER}"
+							/>
+							<TextArea
+								growing="true"
+								growingMaxLines="5"
+								rows="3"
+								value="{CAD_MAM>/content/MAMA_DER2/Value}"
+								editable="{
+									parts: ['CAD_MAM>/Dokst', 'CAD_MAM>/content/EXPLO_MAMX/Value'],
+									formatter: '.formatter.isEditable'
+								}"
+								width="100%"
+							/>
+							<Label text="{i18n>CADMAM_X00LA_DER}"/>
+							<TextArea
+								growing="true"
+								growingMaxLines="5"
+								rows="3"
+								value="{CAD_MAM>/content/X00LA_DER/Value}"
+								editable="{
+									parts: ['CAD_MAM>/Dokst', 'CAD_MAM>/content/EXPLO_MAMX/Value'],
+									formatter: '.formatter.isEditable'
+								}"
+								width="100%"
+							/>
+						</VBox>
+						<VBox>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+							<Label
+								text="{i18n>MAMA_IZQ}"
+								tooltip="{i18n>MAMA_IZQ}"
+							/>
+							<TextArea
+								growing="true"
+								growingMaxLines="5"
+								rows="3"
+								value="{CAD_MAM>/content/MAMA_IZQ2/Value}"
+								editable="{
+									parts: ['CAD_MAM>/Dokst', 'CAD_MAM>/content/EXPLO_MAMX/Value'],
+									formatter: '.formatter.isEditable'
+								}"
+								width="100%"
+							/>
+							<Label text="{i18n>CADMAM_X00LA_IZQ}"/>
+							<TextArea
+								growing="true"
+								growingMaxLines="5"
+								rows="3"
+								value="{CAD_MAM>/content/X00LA_IZQ/Value}"
+								editable="{
+									parts: ['CAD_MAM>/Dokst', 'CAD_MAM>/content/EXPLO_MAMX/Value'],
+									formatter: '.formatter.isEditable'
+								}"
+								width="100%"
+							/>
+						</VBox>
+					</HBox>
+				</Panel>
+				<Panel>
+					<CheckBox
+						selected="{=${CAD_MAM>/content/ECOX_MAM/Value}==='X'}"
+						text="{i18n>ECOX_MAM}"
+						select="onSelect($event, 'CAD_MAM','ECOX_MAM')"
+						editable="{
+							path: 'CAD_MAM>/Dokst',
+							formatter: '.formatter.isEditable'
+						}"
+					/>
+					<VBox>
+						<TextArea
+							growing="true"
+							growingMaxLines="5"
+							rows="3"
+							value="{CAD_MAM>/content/ECO_MAM_T2/Value}"
+							editable="{
+								parts: ['CAD_MAM>/Dokst', 'CAD_MAM>/content/ECOX_MAM/Value'],
+								formatter: '.formatter.isEditable'
+							}"
+							width="100%"
+						/>
+					</VBox>
+				</Panel>
+				<Panel>
+					<HBox width="100%">
+						<VBox class="sapUiSmallMarginEnd">
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+							<Label
+								text="{i18n>CADMAM_DIAG_MAM}"
+								tooltip="{i18n>CADMAM_DIAG_MAM}"
+							/>
+							<ComboBox
+								id="DIAG_MAM"
+								items="{KeyValue>/DIAG_MAM}"
+								value="{CAD_MAM>/content/DIAG_MAM/Value}"
+								change="onDIAG_MAMChange"
+								editable="{
+									path: 'CAD_MAM>/Dokst',
+									formatter: '.formatter.isEditable'
+								}"
+								width="100%"
+							>
+								<c:Item
+									key="{KeyValue>KeyText}"
+									text="{KeyValue>KeyText}"
+								/>
+							</ComboBox>
+							<TextArea
+								growing="true"
+								growingMaxLines="5"
+								rows="3"
+								value="{CAD_MAM>/content/DIAG_MAM_T/Value}"
+								editable="{
+									path: 'CAD_MAM>/Dokst',
+									formatter: '.formatter.isEditable'
+								}"
+								width="100%"
+							/>
+						</VBox>
+						<VBox>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+							<Label
+								text="{i18n>CADMAM_PLAN_MAM}"
+								tooltip="{i18n>CADMAM_PLAN_MAM}"
+							/>
+							<Select
+								items="{KeyValue>/PLAN_MAM}"
+								selectedKey="{CAD_MAM>/content/PLAN_MAM/Value}"
+								enabled="{
+									path: 'CAD_MAM>/Dokst',
+									formatter: '.formatter.isEditable'
+								}"
+								width="100%"
+							>
+								<c:Item
+									key="{KeyValue>KeyValue}"
+									text="{KeyValue>KeyText}"
+								/>
+							</Select>
+							<TextArea
+								growing="true"
+								growingMaxLines="5"
+								rows="3"
+								value="{CAD_MAM>/content/PLAN_MAM_T/Value}"
+								editable="{
+									path: 'CAD_MAM>/Dokst',
+									formatter: '.formatter.isEditable'
+								}"
+								width="100%"
+							/>
+						</VBox>
+					</HBox>
+					<HBox>
+						<VBox class="sapUiSmallMarginEnd">
+							<layoutData>
+								<FlexItemData growFactor="2"/>
+							</layoutData>
+							<Label
+								text="{i18n>CADMAM_OBS_MAM}"
+								tooltip="{i18n>CADMAM_OBS_MAM}"
+							/>
+							<TextArea
+								growing="true"
+								growingMaxLines="5"
+								rows="3"
+								value="{CAD_MAM>/content/OBS_MAM/Value}"
+								editable="{
+									path: 'CAD_MAM>/Dokst',
+									formatter: '.formatter.isEditable'
+								}"
+								width="100%"
+							/>
+						</VBox>
+						<VBox>
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+							<Label
+								text="{i18n>CADMAM_STATUS_INT}"
+								tooltip="{i18n>CADMAM_STATUS_INT}"
+							/>
+							<TextArea
+								growing="true"
+								growingMaxLines="5"
+								rows="3"
+								value="{CAD_MAM>/content/STATUS_INT/Value}"
+								editable="{
+									path: 'CAD_MAM>/Dokst',
+									formatter: '.formatter.isEditable'
+								}"
+								width="100%"
+							/>
+						</VBox>
+					</HBox>
+				</Panel>
+			</uxap:ObjectPageSubSection>
+		</uxap:ObjectPageSection>
+		<uxap:ObjectPageSection
+			title="{i18n>SupplementaryTests}"
+			titleUppercase="false"
+		>
+			<uxap:ObjectPageSubSection showTitle="false">
+				<Panel headerText="{i18n>TestsPerformed}">
+					<HBox
+						alignItems="Center"
+						width="100%"
+					>
+						<Label text="">
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									maxWidth="10rem"
+									minWidth="10rem"
+								/>
+							</layoutData>
+						</Label>
+						<Label
+							text="{i18n>Request}"
+							tooltip="{i18n>Request}"
+						>
+							<layoutData>
+								<FlexItemData styleClass="resulto-gine-title-margin-right"/>
+							</layoutData>
+						</Label>
+						<Label
+							text="{i18n>Result}"
+							tooltip="{i18n>Result}"
+						>
+							<layoutData>
+								<FlexItemData growFactor="4"/>
+							</layoutData>
+						</Label>
+					</HBox>
+					<HBox
+						alignItems="Center"
+						width="100%"
+					>
+						<Label
+							text="{i18n>CADMAM_PRU_SOLIC}"
+							tooltip="{i18n>CADMAM_PRU_SOLIC}"
+						>
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									maxWidth="10rem"
+									minWidth="10rem"
+								/>
+							</layoutData>
+						</Label>
+						<CheckBox
+							selected="{=${CAD_MAM>/content/PRU_SOLIC/Value}==='X'}"
+							select="onSelect($event, 'CAD_MAM','PRU_SOLIC')"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData styleClass="resulto-gine-checkbox-margin-right"/>
+							</layoutData>
+						</CheckBox>
+						<TextArea
+							wrapping="Soft"
+							value="{CAD_MAM>/content/PRU_OBS/Value}"
+							width="100%"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData growFactor="4"/>
+							</layoutData>
+						</TextArea>
+					</HBox>
+					<HBox
+						alignItems="Center"
+						width="100%"
+					>
+						<Label
+							text="{i18n>CADMAM_X00_SOLIC}"
+							tooltip="{i18n>CADMAM_X00_SOLIC}"
+						>
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									maxWidth="10rem"
+									minWidth="10rem"
+								/>
+							</layoutData>
+						</Label>
+						<CheckBox
+							selected="{=${CAD_MAM>/content/X00_SOLIC/Value}==='X'}"
+							select="onSelect($event, 'CAD_MAM','X00_SOLIC')"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData styleClass="resulto-gine-checkbox-margin-right"/>
+							</layoutData>
+						</CheckBox>
+						<TextArea
+							wrapping="Soft"
+							value="{CAD_MAM>/content/X00_OBS/Value}"
+							width="100%"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData growFactor="4"/>
+							</layoutData>
+						</TextArea>
+					</HBox>
+					<HBox
+						alignItems="Center"
+						width="100%"
+					>
+						<Label
+							text="{i18n>CADMAM_X01_SOLIC}"
+							tooltip="{i18n>CADMAM_X01_SOLIC}"
+						>
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									maxWidth="10rem"
+									minWidth="10rem"
+								/>
+							</layoutData>
+						</Label>
+						<CheckBox
+							selected="{=${CAD_MAM>/content/X01_SOLIC/Value}==='X'}"
+							select="onSelect($event, 'CAD_MAM','X01_SOLIC')"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData styleClass="resulto-gine-checkbox-margin-right"/>
+							</layoutData>
+						</CheckBox>
+						<TextArea
+							wrapping="Soft"
+							value="{CAD_MAM>/content/X01_OBS/Value}"
+							width="100%"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData growFactor="4"/>
+							</layoutData>
+						</TextArea>
+					</HBox>
+					<HBox
+						alignItems="Center"
+						width="100%"
+					>
+						<Label
+							text="{i18n>CADMAM_X02_SOLIC}"
+							tooltip="{i18n>CADMAM_X02_SOLIC}"
+						>
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									maxWidth="10rem"
+									minWidth="10rem"
+								/>
+							</layoutData>
+						</Label>
+						<CheckBox
+							selected="{=${CAD_MAM>/content/X02_SOLIC/Value}==='X'}"
+							select="onSelect($event, 'CAD_MAM','X02_SOLIC')"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData styleClass="resulto-gine-checkbox-margin-right"/>
+							</layoutData>
+						</CheckBox>
+						<TextArea
+							wrapping="Soft"
+							value="{CAD_MAM>/content/X02_OBS/Value}"
+							width="100%"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData growFactor="4"/>
+							</layoutData>
+						</TextArea>
+					</HBox>
+					<HBox
+						alignItems="Center"
+						width="100%"
+					>
+						<Label
+							text="{i18n>CADMAM_X03_SOLIC}"
+							tooltip="{i18n>CADMAM_X03_SOLIC}"
+						>
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									maxWidth="10rem"
+									minWidth="10rem"
+								/>
+							</layoutData>
+						</Label>
+						<CheckBox
+							selected="{=${CAD_MAM>/content/X03_SOLIC/Value}==='X'}"
+							select="onSelect($event, 'CAD_MAM','X03_SOLIC')"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						/>
+						<CheckBox
+							selected="{=${CAD_MAM>/content/PRU_SEG/Value}==='X'}"
+							text="{i18n>Tracing}"
+							select="onSelect($event, 'CAD_MAM','PRU_SEG')"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData styleClass="sapUiTinyMarginEnd"/>
+							</layoutData>
+						</CheckBox>
+						<TextArea
+							wrapping="Soft"
+							value="{CAD_MAM>/content/X03_OBS/Value}"
+							width="100%"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData growFactor="4"/>
+							</layoutData>
+						</TextArea>
+					</HBox>
+					<HBox
+						alignItems="Center"
+						width="100%"
+					>
+						<Label
+							text="Preoperatorio"
+							tooltip="Preoperatorio"
+						>
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									maxWidth="10rem"
+									minWidth="10rem"
+								/>
+							</layoutData>
+						</Label>
+						<CheckBox
+							selected="{=${CAD_MAM>/content/X04_SOLIC/Value}==='X'}"
+							select="onSelect($event, 'CAD_MAM','X04_SOLIC')"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData styleClass="resulto-gine-checkbox-margin-right"/>
+							</layoutData>
+						</CheckBox>
+						<TextArea
+							wrapping="Soft"
+							value="{CAD_MAM>/content/X04_OBS/Value}"
+							width="100%"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData growFactor="4"/>
+							</layoutData>
+						</TextArea>
+					</HBox>
+					<HBox
+						alignItems="Center"
+						width="100%"
+					>
+						<Input
+							value="{CAD_MAM>/content/OTHR_PRU_X/Value}"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									maxWidth="10rem"
+									minWidth="10rem"
+								/>
+							</layoutData>
+						</Input>
+						<CheckBox
+							selected="{=${CAD_MAM>/content/X05_SOLIC/Value}==='X'}"
+							select="onSelect($event, 'CAD_MAM','X05_SOLIC')"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData styleClass="resulto-gine-checkbox-margin-right"/>
+							</layoutData>
+						</CheckBox>
+						<TextArea
+							wrapping="Soft"
+							value="{CAD_MAM>/content/X05_OBS/Value}"
+							width="100%"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData growFactor="4"/>
+							</layoutData>
+						</TextArea>
+					</HBox>
+				</Panel>
+				<Panel headerText="{i18n>APA}">
+					<HBox
+						alignItems="Center"
+						width="100%"
+					>
+						<Label text="">
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									maxWidth="10rem"
+									minWidth="10rem"
+								/>
+							</layoutData>
+						</Label>
+						<Label
+							text="{i18n>Request}"
+							tooltip="{i18n>Request}"
+						>
+							<layoutData>
+								<FlexItemData styleClass="resulto-gine-title-margin-right"/>
+							</layoutData>
+						</Label>
+						<Label
+							text="{i18n>Result}"
+							tooltip="{i18n>Result}"
+						>
+							<layoutData>
+								<FlexItemData growFactor="4"/>
+							</layoutData>
+						</Label>
+					</HBox>
+					<HBox
+						alignItems="Center"
+						width="100%"
+					>
+						<Label
+							text="{i18n>CADMAM_X06_SOLIC}"
+							tooltip="{i18n>CADMAM_X06_SOLIC}"
+						>
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									maxWidth="10rem"
+									minWidth="10rem"
+								/>
+							</layoutData>
+						</Label>
+						<CheckBox
+							selected="{=${CAD_MAM>/content/X06_SOLIC/Value}==='X'}"
+							select="onSelect($event, 'CAD_MAM','X06_SOLIC')"
+							
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData styleClass="resulto-gine-checkbox-margin-right"/>
+							</layoutData>
+						</CheckBox>
+						<TextArea
+							wrapping="Soft"
+							value="{CAD_MAM>/content/X06_OBS/Value}"
+							width="100%"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData growFactor="4"/>
+							</layoutData>
+						</TextArea>
+					</HBox>
+					<HBox
+						alignItems="Center"
+						width="100%"
+					>
+						<Label
+							text="{i18n>CADMAM_X07_SOLIC}"
+							tooltip="{i18n>CADMAM_X07_SOLIC}"
+						>
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									maxWidth="10rem"
+									minWidth="10rem"
+								/>
+							</layoutData>
+						</Label>
+						<CheckBox
+							selected="{=${CAD_MAM>/content/X07_SOLIC/Value}==='X'}"
+							select="onSelect($event, 'CAD_MAM','X07_SOLIC')"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData styleClass="resulto-gine-checkbox-margin-right"/>
+							</layoutData>
+						</CheckBox>
+						<TextArea
+							wrapping="Soft"
+							value="{CAD_MAM>/content/X07_OBS/Value}"
+							width="100%"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData growFactor="4"/>
+							</layoutData>
+						</TextArea>
+					</HBox>
+					<HBox
+						alignItems="Center"
+						width="100%"
+					>
+						<Label
+							text="{i18n>CADMAM_X08_SOLIC}"
+							tooltip="{i18n>CADMAM_X08_SOLIC}"
+						>
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									maxWidth="10rem"
+									minWidth="10rem"
+								/>
+							</layoutData>
+						</Label>
+						<CheckBox
+							selected="{=${CAD_MAM>/content/X08_SOLIC/Value}==='X'}"
+							select="onSelect($event, 'CAD_MAM','X08_SOLIC')"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData styleClass="resulto-gine-checkbox-margin-right"/>
+							</layoutData>
+						</CheckBox>
+						<TextArea
+							wrapping="Soft"
+							value="{CAD_MAM>/content/X08_OBS/Value}"
+							width="100%"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData growFactor="4"/>
+							</layoutData>
+						</TextArea>
+					</HBox>
+					<HBox
+						alignItems="Center"
+						width="100%"
+					>
+						<Label
+							text="{i18n>CADMAM_X09_SOLIC}"
+							tooltip="{i18n>CADMAM_X09_SOLIC}"
+						>
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									maxWidth="10rem"
+									minWidth="10rem"
+								/>
+							</layoutData>
+						</Label>
+						<CheckBox
+							selected="{=${CAD_MAM>/content/X09_SOLIC/Value}==='X'}"
+							select="onSelect($event, 'CAD_MAM','X09_SOLIC')"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData styleClass="resulto-gine-checkbox-margin-right"/>
+							</layoutData>
+						</CheckBox>
+						<TextArea
+							wrapping="Soft"
+							value="{CAD_MAM>/content/X09_OBS/Value}"
+							width="100%"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData growFactor="4"/>
+							</layoutData>
+						</TextArea>
+					</HBox>
+					<HBox
+						alignItems="Center"
+						width="100%"
+					>
+						<Input
+							value="{CAD_MAM>/content/X00R_PRU_X/Value}"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData
+									growFactor="1"
+									maxWidth="10rem"
+									minWidth="10rem"
+								/>
+							</layoutData>
+						</Input>
+						<CheckBox
+							selected="{=${CAD_MAM>/content/X0A_SOLIC/Value}==='X'}"
+							select="onSelect($event, 'CAD_MAM','X0A_SOLIC')"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData styleClass="resulto-gine-checkbox-margin-right"/>
+							</layoutData>
+						</CheckBox>
+						<TextArea
+							wrapping="Soft"
+							value="{CAD_MAM>/content/X0A_OBS/Value}"
+							width="100%"
+							editable="{
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}"
+						>
+							<layoutData>
+								<FlexItemData growFactor="4"/>
+							</layoutData>
+						</TextArea>
+					</HBox>
+				</Panel>
+				<Panel>
+					<Table
+						items="{
+							path: 'CAD_MAM>/Reports',
+							templateShareable: false
+						}"
+						delete="onDeleteReport($event, 'CAD_MAM')"
+						mode="{= ${
+								path: 'CAD_MAM>/Dokst',
+								formatter: '.formatter.isEditable'
+							}?'Delete':'None'}"
+					>
+						<headerToolbar>
+							<Toolbar>
+								<Title
+									text="{i18n>Reported}"
+									titleStyle="H3"
+								/>
+								<ToolbarSpacer/>
+								<Button
+									icon="sap-icon://add"
+									type="Transparent"
+									text="{i18n>Add}"
+									tooltip="{i18n>Add}"
+									press="onAddReport($event, 'CAD_MAM')"
+									enabled="{
+										path: 'CAD_MAM>/Dokst',
+										formatter: '.formatter.isEditable'
+									}"
+								/>
+							</Toolbar>
+						</headerToolbar>
+						<columns>
+							<Column>
+								<Text text="{i18n>Reported}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>DIA_INFORM}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>VIA_GINE}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>PROF_GINE}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>ENTR_INF}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>VIA_GINE}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>DIA_INFORM}"/>
+							</Column>
+						</columns>
+						<ColumnListItem>
+							<cells>
+								<Select
+									items="{
+										path: 'KeyValue>/GINE_INFOR',
+										templateShareable: false
+									}"
+									selectedKey="{CAD_MAM>GINE_INFOR}"
+									enabled="{
+										path: 'CAD_MAM>/Dokst',
+										formatter: '.formatter.isEditable'
+									}"
+									width="100%"
+								>
+									<c:Item
+										key="{KeyValue>KeyValue}"
+										text="{KeyValue>KeyText}"
+									/>
+								</Select>
+								<DatePicker
+									displayFormat="dd.MM.yyyy"
+									value="{CAD_MAM>DIA_INFORM}"
+									valueFormat="dd.MM.yyyy"
+									editable="{
+										path: 'CAD_MAM>/Dokst',
+										formatter: '.formatter.isEditable'
+									}"
+								/>
+								<Select
+									items="{
+										path: 'KeyValue>/VIA_GINE',
+										templateShareable: false
+									}"
+									selectedKey="{CAD_MAM>VIA_GINE}"
+									enabled="{
+										path: 'CAD_MAM>/Dokst',
+										formatter: '.formatter.isEditable'
+									}"
+									width="100%"
+								>
+									<c:Item
+										key="{KeyValue>KeyValue}"
+										text="{KeyValue>KeyText}"
+									/>
+								</Select>
+								<Input
+									value="{CAD_MAM>PROF_GINE}"
+									editable="false"
+								/>
+								<CheckBox
+									selected="{=${CAD_MAM>ENTR_INF}==='X'}"
+									select="onENTR_INFSelect"
+									editable="{
+										path: 'CAD_MAM>/Dokst',
+										formatter: '.formatter.isEditable'
+									}"
+								/>
+								<Select
+									items="{
+										path: 'KeyValue>/VIA_GINE2',
+										templateShareable: false
+									}"
+									selectedKey="{CAD_MAM>VIA_GINE2}"
+									enabled="{
+										path: 'CAD_MAM>/Dokst',
+										formatter: '.formatter.isEditable'
+									}"
+									width="100%"
+								>
+									<c:Item
+										key="{KeyValue>KeyValue}"
+										text="{KeyValue>KeyText}"
+									/>
+								</Select>
+								<DatePicker
+									displayFormat="dd.MM.yyyy"
+									value="{CAD_MAM>DIA_INFOR2}"
+									valueFormat="dd.MM.yyyy"
+									editable="{
+										path: 'CAD_MAM>/Dokst',
+										formatter: '.formatter.isEditable'
+									}"
+								/>
+							</cells>
+						</ColumnListItem>
+					</Table>
+				</Panel>
+			</uxap:ObjectPageSubSection>
+		</uxap:ObjectPageSection>
+		<uxap:ObjectPageSection
+			title="{i18n>OtherData}"
+			titleUppercase="false"
+		>
+			<uxap:ObjectPageSubSection showTitle="false">
+				<Panel>
+					<Table items="{CAD_MAM>/Signs}">
+						<headerToolbar>
+							<Toolbar>
+								<Title
+									text="{i18n>Sign}"
+									titleStyle="H3"
+								/>
+							</Toolbar>
+						</headerToolbar>
+						<columns>
+							<Column>
+								<Text text="{i18n>PMD_FERNUM}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>PMD_FERNAM}"/>
+							</Column>
+							<Column>
+								<Text text="{i18n>PMD_FERMLN}"/>
+							</Column>
+						</columns>
+						<ColumnListItem>
+							<cells>
+								<Text text="{CAD_MAM>PMD_FERNUM}"/>
+								<Text text="{CAD_MAM>PMD_FERNAM}"/>
+								<Text text="{CAD_MAM>PMD_FERMLN}"/>
+							</cells>
+						</ColumnListItem>
+					</Table>
+				</Panel>
+			</uxap:ObjectPageSubSection>
+		</uxap:ObjectPageSection>
+	</uxap:ObjectPageLayout>
+</c:FragmentDefinition>

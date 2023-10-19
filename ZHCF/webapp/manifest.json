@@ -1,0 +1,203 @@
+{
+    "_version": "1.21.0",
+    "sap.app": {
+        "id": "com.resulto.hcfi",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{AppTitle}}",
+        "description": "{{AppDescription}}",
+        "dataSources": {
+            "ISH_PAT_SUMM_SRV": {
+                "uri": "/sap/opu/odata/rslt/ISH_PAT_SUMM_SRV/",
+                "type": "OData",
+                "settings": {
+                    "localUri": "localService/ISH_PAT_SUMM_SRV/metadata.xml"
+                }
+            },
+            "MVS_VITAL_SIGNS_SRV": {
+                "uri": "/sap/opu/odata/rslt/MVS_VITAL_SIGNS_SRV/",
+                "type": "OData",
+                "settings": {
+                    "localUri": "localService/MVS_VITAL_SIGNS_SRV/metadata.xml"
+                }
+            },
+            "ZISH_HCFI_SRV": {
+                "uri": "/sap/opu/odata/sap/ZISH_HCFI_SRV/",
+                "type": "OData",
+                "settings": {
+                    "localUri": "localService/ZISH_HCFI_SRV/metadata.xml"
+                }
+            },
+            "ZMEDIMAGE_GW_SRV": {
+                "uri": "/sap/opu/odata/sap/ZMEDIMAGE_GW_SRV/",
+                "type": "OData",
+                "settings": {
+                    "localUri": "localService/ZMEDIMAGE_GW_SRV/metadata.xml"
+                }
+            }
+        },
+        "sourceTemplate": {
+            "id": "@sap/ux-app-migrator:freestyle",
+            "version": "1.11.0",
+            "toolsId": "d3a837b9-bbb7-4bc0-9716-60e4093c70e2"
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "rootView": {
+            "viewName": "com.resulto.hcfi.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "App"
+        },
+        "dependencies": {
+            "minUI5Version": "1.107.0",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.m": {},
+                "sap.ui.layout": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "com.resulto.hcfi.i18n.i18n"
+                }
+            },
+            "ISH_PAT_SUMM_SRV": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "settings": {
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "OneWay",
+                    "defaultCountMode": "Request",
+                    "defaultUpdateMethod": "PUT",
+                    "useBatch": false
+                },
+                "dataSource": "ISH_PAT_SUMM_SRV",
+                "preload": true
+            },
+            "MVS_VITAL_SIGNS_SRV": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "settings": {
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "OneWay",
+                    "defaultCountMode": "Request",
+                    "useBatch": true
+                },
+                "dataSource": "MVS_VITAL_SIGNS_SRV",
+                "preload": true
+            },
+            "ZISH_HCFI_SRV": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "settings": {
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "OneWay",
+                    "defaultCountMode": "Request",
+                    "defaultUpdateMethod": "PUT",
+                    "useBatch": false
+                },
+                "dataSource": "ZISH_HCFI_SRV",
+                "preload": true
+            },
+            "ZMEDIMAGE_GW_SRV": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "settings": {
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "OneWay",
+                    "defaultCountMode": "Request",
+                    "defaultUpdateMethod": "PUT",
+                    "useBatch": false
+                },
+                "dataSource": "ZMEDIMAGE_GW_SRV",
+                "preload": true
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ],
+            "js": [
+                {
+                    "uri": "controls/CustomMenuButton.js"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "viewPath": "com.resulto.hcfi.view",
+                "controlId": "app",
+                "controlAggregation": "pages",
+                "async": true
+            },
+            "routes": [
+                {
+                    "name": "Main",
+                    "pattern": ":?query:",
+                    "target": [
+                        "TargetMain"
+                    ]
+                },
+                {
+                    "name": "Error",
+                    "pattern": "error",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "Error"
+                    ]
+                }
+            ],
+            "targets": {
+                "TargetMain": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "Main",
+                    "viewName": "Main"
+                },
+                "App": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "App",
+                    "viewId": "App",
+                    "viewLevel": 1
+                },
+                "Error": {
+                    "viewType": "XML",
+                    "viewName": "Error",
+                    "viewId": "Error",
+                    "viewLevel": 1
+                }
+            }
+        }
+    }
+}

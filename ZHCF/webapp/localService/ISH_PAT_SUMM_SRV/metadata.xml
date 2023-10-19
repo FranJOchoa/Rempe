@@ -1,0 +1,67 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+  <edmx:DataServices m:DataServiceVersion="2.0">
+    <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="RSLT.ISH_PAT_SUMM_SRV" xml:lang="es" sap:schema-version="1">
+      <EntityType Name="summary" sap:label="Resumen" sap:content-version="1">
+        <Key>
+          <PropertyRef Name="type"/>
+          <PropertyRef Name="key"/>
+        </Key>
+        <Property Name="type" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Tipo" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="key" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Clave" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="datetime" Type="Edm.DateTime" Nullable="false" Precision="0" sap:unicode="false" sap:label="Fecha/Hora" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="documentationUnit" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="responsible" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Responsable" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="information" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Información" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="text" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Texto" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+      </EntityType>
+      <EntityType Name="patientApplication" sap:label="Aplicación de Paciente" sap:content-version="1">
+        <Key>
+          <PropertyRef Name="semanticObject"/>
+          <PropertyRef Name="action"/>
+          <PropertyRef Name="path"/>
+        </Key>
+        <Property Name="semanticObject" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Objeto Semántico" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="action" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Acción" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="path" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Ruta" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="applicationName" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Nombre de Aplicación" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="applicationId" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Clave de Aplicación" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="applicationDescription" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Descripción de Aplicación" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+      </EntityType>
+      <EntityType Name="summaryType" sap:label="Tipo de Resumen" sap:content-version="1">
+        <Key>
+          <PropertyRef Name="type"/>
+        </Key>
+        <Property Name="type" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Tipo" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="description" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Descripción" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="icon" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Icono" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="APCPath" Type="Edm.String" sap:unicode="false" sap:label="" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="APCProtocol" Type="Edm.String" sap:unicode="false" sap:label="" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="PCPChannel" Type="Edm.String" sap:unicode="false" sap:label="" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <NavigationProperty Name="toSummary" Relationship="RSLT.ISH_PAT_SUMM_SRV.summaryTypeToSummary" FromRole="FromRole_summaryTypeToSummary" ToRole="ToRole_summaryTypeToSummary"/>
+      </EntityType>
+      <Association Name="summaryTypeToSummary" sap:content-version="1">
+        <End Type="RSLT.ISH_PAT_SUMM_SRV.summaryType" Multiplicity="*" Role="FromRole_summaryTypeToSummary"/>
+        <End Type="RSLT.ISH_PAT_SUMM_SRV.summary" Multiplicity="*" Role="ToRole_summaryTypeToSummary"/>
+        <ReferentialConstraint>
+          <Principal Role="FromRole_summaryTypeToSummary">
+            <PropertyRef Name="type"/>
+          </Principal>
+          <Dependent Role="ToRole_summaryTypeToSummary">
+            <PropertyRef Name="type"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <EntityContainer Name="RSLT.ISH_PAT_SUMM_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+        <EntitySet Name="summarySet" EntityType="RSLT.ISH_PAT_SUMM_SRV.summary" sap:label="Establecer Resumen" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+        <EntitySet Name="patientApplicationSet" EntityType="RSLT.ISH_PAT_SUMM_SRV.patientApplication" sap:label="Establecer Aplicación de Paciente" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+        <EntitySet Name="summaryTypeSet" EntityType="RSLT.ISH_PAT_SUMM_SRV.summaryType" sap:label="Establecer Tipo de Resumen" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+        <AssociationSet Name="summaryTypeToSummarySet" Association="RSLT.ISH_PAT_SUMM_SRV.summaryTypeToSummary" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+          <End EntitySet="summaryTypeSet" Role="FromRole_summaryTypeToSummary"/>
+          <End EntitySet="summarySet" Role="ToRole_summaryTypeToSummary"/>
+        </AssociationSet>
+      </EntityContainer>
+      <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="https://SAPDES.GRUPORECOLETAS.COM:443/sap/opu/odata/rslt/ISH_PAT_SUMM_SRV/$metadata"/>
+      <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="https://SAPDES.GRUPORECOLETAS.COM:443/sap/opu/odata/rslt/ISH_PAT_SUMM_SRV/$metadata"/>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

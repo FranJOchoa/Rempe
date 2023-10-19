@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog 
+    title="{i18n>Diag_Judment}" 
+    contentWidth="33%" 
+    contentHeight="50%" 
+    busyIndicatorDelay="0"
+    afterClose="onCancelDiagJudgment">
+    <SearchField
+      id="diag_Judgment_Search"
+      enableSuggestions="true"
+      enabled="true"
+      showRefreshButton="false"
+      class="sapUiTinyMarginEnd"
+      showSearchButton="true"
+      liveChange="onTypeDiag_Judgment"
+      search="onSearchDiag_Judgment"></SearchField>
+    <List 
+      id="DiagList" 
+      mode="SingleSelectMaster" 
+      items="{DiagnosticsSetFiltered>/results}"
+      itemPress="onSaveDiagJudgment($event, 'CAD_OPD')">
+      <StandardListItem title="{DiagnosticsSetFiltered>Description}" type="Active" />
+    </List>
+    <buttons>
+      <Button type="Reject" text="{i18n>Cancel}" press="onCancelDiagJudgment($event)" />
+      <!--<Button type="Accept" text="{i18n>Save}" press="onSaveDiagJudgment($event, 'CAD_OPD')" />-->
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>
